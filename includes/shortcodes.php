@@ -40,7 +40,9 @@ function sola_t_all_testimonials($atts){
             $my_query = new WP_Query('post_type=testimonials&posts_per_page=1&orderby=rand');
         }
         else if (isset($atts['id']) && $atts['id'] > 0) {
+
             $my_query = new WP_Query('post_type=testimonials&posts_per_page=1&p='.$atts['id']);
+            
         } else if( isset( $atts['per_page'] ) ) { 
             $testimonials_per_page = $atts['per_page']; 
             $my_query = new WP_Query('post_type=testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
@@ -657,4 +659,23 @@ function sola_t_ajax_callback(){
 
     }    
 
+}
+
+/* Gutenberg functions */
+add_action( 'wp_ajax_sola_t_update_gutenberg_changes', 'sola_t_update_gutenberg_changes' );
+add_action( 'wp_ajax_nopriv_sola_t_update_gutenberg_changes', 'sola_t_update_gutenberg_changes' );
+
+function sola_t_update_gutenberg_changes(){
+    $id = (isset($_POST['id'])) ? $_POST['id'] : '';
+    $content = '[sola_testimonial id=' . $id . ']';
+    $content = do_shortcode($content);
+    $error_msg = '<p>The testimonial with the selected ID does not exist.</p>';
+    $is_empty = ($content == "<div class='sola_t_container_parent'></div>") ? true : false;
+    if ( !$is_empty ) {
+        echo $content;
+    } else {
+        echo $error_msg;
+    }
+    
+    wp_die();
 }

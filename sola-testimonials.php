@@ -131,6 +131,10 @@ add_filter('get_the_excerpt', 'sola_t_custom_excerpt');
 require_once 'includes/shortcodes.php';
 require_once 'includes/widget.php';
 
+// Gutenberg Blocks
+include "includes/gutenberg-blocks/single-testimonial/index.php";
+include "includes/gutenberg-blocks/all-testimonials/index.php";
+
 add_action( 'widgets_init', 'sola_t_register_widgets' );
 
 add_filter('pre_get_posts', 'sola_t_loop_control', 10);    
