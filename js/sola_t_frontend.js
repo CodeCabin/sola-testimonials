@@ -10,8 +10,9 @@ jQuery(document).ready(function() {
         verticalAlign: "top"
     });
 
-    jQuery('.sola_t_layout_1_container .sola_t_container, .sola_t_layout_2_container .sola_t_container, .sola_t_layout_3_container .sola_t_container, .sola_t_layout_4_container .sola_t_container').matchHeight();
-
+    if (!jQuery(".sola_t_cnt_1").hasClass('theme-7')) {
+        jQuery('.sola_t_layout_1_container .sola_t_container, .sola_t_layout_2_container .sola_t_container, .sola_t_layout_3_container .sola_t_container, .sola_t_layout_4_container .sola_t_container').matchHeight();
+    }
     jQuery('body').on('click', '.sola_t_page', function(){
 
     	console.log('clicked');

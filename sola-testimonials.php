@@ -3,16 +3,30 @@
  * Plugin Name: Sola Testimonials
  * Plugin URI: http://solaplugins.com
  * Description: A super easy to use and comprehensive Testimonial plugin.
- * Version: 1.9.3
+ * Version: 1.9.5
  * Author: Sola Plugins
  * Author URI: http://solaplugins.com
  * License: GPL2
  */
 
-/* 
+/**
+ * 1.9.6 - 2018-01-17 - Low priority
+ * Added Gutenberg Blocks integration to display a single testimonial
+ * Added Gutenberg Blocks integration to display a all testimonials
+ *
+ * 1.9.5 - 2018-01-17 - Low priority
+ * Improved the UX in the settings area
+ * Fixed a bug with the custom post types
+ * Fixed a bug where [sola_t_all_testimonials] was not working
+ * Tested the plugin on WP 4.9.1
+ * 
+ * 1.9.4 - 2017-04-06 - Low Priority
+ * REST API endpoint added - get_all_testimonials
+ * Styling fix - Stray double quotes added to testimonial content have been removed
+ * 
  * 1.9.3 - 2017-01-27 - Low Priority
  * New Shortcode Added - Ability to display the total count of your markers
- * [sola_testimonials_count type='any'] - type accepts 'any', 'pending', 'approved'
+ * [sola_testimonials_count type='all'] - type accepts 'all', 'pending', 'approved'
  * Fixed a bug that caused the testimonial status to remain approved
  * 
  * 1.9.2 - 2016-12-06 - Medium Priority
@@ -150,7 +164,7 @@ register_uninstall_hook(__FILE__, 'sola_t_uninstall');
 global $sola_t_version;
 global $sola_t_version_string;
 
-$sola_t_version = "1.9.3";
+$sola_t_version = "1.9.5";
 $sola_t_version_string = "Basic";
 
 function sola_t_register_widgets(){
@@ -244,6 +258,16 @@ function sola_t_feedback_head() {
 
 function sola_t_activate(){
     
+    $sola_t_token = get_option('sola_t_token');
+
+    if( !$sola_t_token || $sola_t_token == "" ){
+        
+        $sola_t_new_token = md5( time()."sola_t_token" );
+         
+        update_option( 'sola_t_token', $sola_t_new_token );
+    
+    } 
+
     add_role('testimonial_author', __('Testimonial Author', 'sola_t'), array('read' => true));
     
     $sola_t_options_settings = array(
@@ -296,8 +320,9 @@ function sola_t_activate(){
     sola_t_post_type();
 
     flush_rewrite_rules();
-}
 
+
+}
 function sola_t_deactivate(){
     
 }
@@ -401,18 +426,19 @@ function sola_t_front_end_styles(){
 
 function sola_t_front_end_scripts(){
     wp_enqueue_script('jquery');
+    global $sola_t_version;
     
-    wp_register_script('sola-t-form-validation', SOLA_T_PLUGIN_DIR.'/js/jquery.form-validator.min.js', array('jquery'));
+    wp_register_script('sola-t-form-validation', SOLA_T_PLUGIN_DIR.'/js/jquery.form-validator.min.js', array('jquery'), $sola_t_version);
     wp_enqueue_script('sola-t-form-validation');
     
-    wp_register_script('sola-t-front-end-js', SOLA_T_PLUGIN_DIR.'/js/sola_t_frontend.js', array('jquery'));
+    wp_register_script('sola-t-front-end-js', SOLA_T_PLUGIN_DIR.'/js/sola_t_frontend.js', array('jquery'), $sola_t_version);
 
     wp_localize_script( 'sola-t-front-end-js', 'sola_t_security', 'x' );
     wp_localize_script( 'sola-t-front-end-js', 'sola_t_ajaxurl', admin_url('admin-ajax.php') );
 
     wp_enqueue_script('sola-t-front-end-js');
     
-    wp_register_script('imgLiquid', SOLA_T_PLUGIN_DIR.'/js/imgLiquid-min.js', array('jquery'));
+    wp_register_script('imgLiquid', SOLA_T_PLUGIN_DIR.'/js/imgLiquid-min.js', array('jquery'), $sola_t_version);
     wp_enqueue_script('imgLiquid');
     
     if(!wp_script_is('registered', 'jquery-matchHeight')){
@@ -440,6 +466,77 @@ function sola_t_settings_page(){
 
 function sola_t_feedback_page(){
     include 'includes/feedback.php';
+}
+
+add_action('rest_api_init', 'sola_t_rest_routes_init');
+
+function sola_t_rest_routes_init() {
+
+    register_rest_route('sola_t/v1','/get_all_testimonials', array(
+                        'methods' => 'GET, POST',
+                        'callback' => 'sola_t_get_testimonials_rest'
+    ));
+
+}
+
+function sola_t_get_testimonials_rest( WP_REST_Request $data ) {
+
+    $return_array = array();
+
+    if( isset( $data ) ){
+
+        if( isset( $data['token'] ) ){
+
+            if( $data['token'] == get_option('sola_t_token') ){
+
+                $args = array( 
+                     'post_type' => 'Testimonials',
+                     'posts_per_page' => -1                    
+                );
+
+                $the_query = new WP_Query( $args );
+
+                $testimonial_array = array();
+
+                if ( $the_query->have_posts() ) {
+
+                    while ( $the_query->have_posts() ) {
+
+                        $the_query->the_post();
+
+                        $testimonial_array[] = array(
+                            'title' => get_the_title(),
+                            'content' => get_the_content()
+                        );
+                    }
+                    wp_reset_postdata();
+                } 
+                $return_array['response'] = "Testimonials returned successfully";
+                $return_array['code'] = "200";
+                $return_array['data'] = array( $testimonial_array );
+
+            } else {
+
+                $return_array['response'] = "Secret token is invalid";
+                $return_array['code'] = "401";
+
+            }
+
+        } else {
+
+            $return_array['response'] = "No 'security' found";
+            $return_array['code'] = "401";
+
+        }
+
+    } else{
+
+        $return_array['response'] = "No request data found";
+        $return_array['code'] = "400";
+
+    }
+
+    return $return_array;
 }
 
 function sola_t_post_type() {
@@ -472,11 +569,13 @@ function sola_t_post_type() {
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'thumbnail')
+        'supports'           => array( 'title', 'editor', 'thumbnail'),
+     
     );
 
-    register_post_type( 'testimonials', $args ); 
+    register_post_type( 'Testimonials', $args ); 
 }
+
 
 //function sola_t_excerpt_length($length) {
 //    $options = get_option('sola_t_options_settings');
@@ -487,7 +586,7 @@ function sola_t_read_more($more) {
     $options = get_option('sola_t_options_settings');
     $link = $options['read_more_link'];
     
-    
+
     if (get_post_type() == "testimonials") {
         if(isset($link) && $link != ""){
             $more = "... <a class=\"read-more\" href=\"".get_permalink(get_the_ID())."\">$link</a>";
@@ -514,6 +613,7 @@ function sola_t_meta_box_contents(){
     global $post;
     global $post_id;
 
+    
     ?>
 
 <table class="form-table">
@@ -926,7 +1026,7 @@ function sola_t_return_testimonial_count( $atts ){
         
         if( $atts['type'] == 'all' ){
             $args = array(
-                'post_type' => 'testimonials',            
+                'post_type' => 'Testimonials',            
                 'meta_query' => array(
                     array(
                         'key'     => '_sola_t_status',
@@ -937,7 +1037,7 @@ function sola_t_return_testimonial_count( $atts ){
             );
         } else if( $atts['type'] == 'approved' ){
             $args = array(
-                'post_type' => 'testimonials',            
+                'post_type' => 'Testimonials',            
                 'meta_query' => array(
                     array(
                         'key'     => '_sola_t_status',
@@ -948,7 +1048,7 @@ function sola_t_return_testimonial_count( $atts ){
             );
         } else if( $atts['type'] == 'pending' ){
             $args = array(
-                'post_type' => 'testimonials',            
+                'post_type' => 'Testimonials',            
                 'meta_query' => array(
                     array(
                         'key'     => '_sola_t_status',
@@ -959,7 +1059,7 @@ function sola_t_return_testimonial_count( $atts ){
             );
         } else {
             $args = array(
-                'post_type' => 'testimonials',            
+                'post_type' => 'Testimonials',            
                 'meta_query' => array(
                     array(
                         'key'     => '_sola_t_status',

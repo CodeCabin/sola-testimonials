@@ -15,10 +15,11 @@
             <?php if(function_exists('sola_t_pro_activate')){ ?>
             <a class="nav-tab <?php if(isset($_GET['tab']) && $_GET['tab'] == 'categories') { echo 'nav-tab-active'; } ?>" href="?post_type=testimonials&page=sola_t_settings&tab=categories"><?php _e('Categories', 'sola_t'); ?></a>
             <?php } ?>
+            <a class="nav-tab <?php if(isset($_GET['tab']) && $_GET['tab'] == 'rest') { echo 'nav-tab-active'; } ?>" href="?post_type=testimonials&page=sola_t_settings&tab=rest"><?php _e('REST API', 'sola_t'); ?></a>
             <?php do_action( 'sola_testimonials_settings_page_tabs' ); ?>
             <?php if (!function_exists('sola_t_register_pro')){ ?>
                 <a class="nav-tab <?php if(isset($_GET['tab']) && $_GET['tab'] == 'upgrade') { echo 'nav-tab-active'; } ?>" href="?post_type=testimonials&page=sola_t_settings&tab=upgrade"><?php _e('Upgrade', 'sola_t'); ?></a>
-            <?php } ?>
+            <?php } ?>             
         </h2>
         <?php
         if(isset($_GET['tab'])){
@@ -56,6 +57,10 @@
             array(
                 'url' => 'styles',
                 'page' => 'settings/styles.php'
+            ),
+            array(
+                'url' => 'rest',
+                'page' => 'settings/rest.php'
             )
 
         );

@@ -16,7 +16,7 @@
 		category: 'common',
 
 		edit: function( props ) {
-			console.log(block_content);
+			
 			return el(
 				'div',
 				{ 	id: 'sola-testimonial-all-gutenberg',

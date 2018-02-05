@@ -9,8 +9,10 @@ add_shortcode('sola_testimonials_all', 'sola_t_all_testimonials');
 function sola_t_all_testimonials($atts){
 
     global $post;
+    
 
     $options = get_option('sola_t_options_settings');
+    $layouts = get_option('sola_t_style_settings');
     
     isset($options['show_title']) ? $show_title = $options['show_title'] : $show_title = "";
     isset($options['show_excerpt']) ? $show_body = $options['show_excerpt'] : $show_body = "";
@@ -28,33 +30,52 @@ function sola_t_all_testimonials($atts){
     
 
 
+    /* override image size if theme is material */
+    $material_design = false;
+    if (isset($layouts['chosen_theme'])) { 
+        if ( $layouts['chosen_theme'] === 'theme-7' ) {
+            $material_design = true;
+            /* material-1 theme */
+            $image_size = "680"; /* double size for retina display */
+            $display_size = "340";
+            
+        }
+    }
+
+
+
     if(function_exists('sola_t_register_pro')){
         if( isset( $atts['per_page'] ) ) { 
             $testimonials_per_page = $atts['per_page']; 
-            $my_query = new WP_Query('post_type=testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
+            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
         } else {
+            
             $my_query = testimonials_in_categories($atts);    
         }
     } else {
         if (isset($atts['random']) && $atts['random'] == "yes") {
-            $my_query = new WP_Query('post_type=testimonials&posts_per_page=1&orderby=rand');
+            $my_query = new WP_Query('post_type=Testimonials&posts_per_page=1&orderby=rand');
         }
         else if (isset($atts['id']) && $atts['id'] > 0) {
-
-            $my_query = new WP_Query('post_type=testimonials&posts_per_page=1&p='.$atts['id']);
-            
+            $my_query = new WP_Query('post_type=Testimonials&posts_per_page=1&p='.$atts['id']);
         } else if( isset( $atts['per_page'] ) ) { 
             $testimonials_per_page = $atts['per_page']; 
-            $my_query = new WP_Query('post_type=testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
+            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
         } else {
-            $my_query = new WP_Query('post_type=testimonials&posts_per_page=-1&status=publish');
+            
+            $my_query = new WP_Query(array('post_type'=>'Testimonials','posts_per_page'=>-1,'post_status'=>'publish'));
+            
         }
     }
 
     $ret = "<div class='sola_t_container_parent'>";
+
+   
     $cnt = 0;
     
+    
     while ($my_query->have_posts()): $my_query->the_post(); 
+        
         $cnt++;
         if(isset($show_title) && $show_title == 1){
 
@@ -71,6 +92,11 @@ function sola_t_all_testimonials($atts){
         $the_title = apply_filters("sola_t_filter_title_wrap",$the_title);
 
         if(isset($show_body) && $show_body == 1){
+            /**
+             * Added to remove additional break points at the end of testimonial content
+             */
+            remove_filter('the_content', 'wpautop');
+            remove_filter('the_excerpt', 'wpautop');
             
             if($content_type == 0){
                 $sola_t_edited_contents = get_the_excerpt();
@@ -78,8 +104,12 @@ function sola_t_all_testimonials($atts){
                 $sola_t_edited_contents = get_the_content();
             }
 
-            $the_body = "
-                <div class=\"sola_t_body\">&ldquo;".apply_filters("sola_t_filter_content",$sola_t_edited_contents)."&rdquo;</div>";
+            if ( $material_design ) {
+                $the_body = "<div class=\"sola_t_body\">" . apply_filters("sola_t_filter_content",$sola_t_edited_contents)."</div>";
+            } else {
+                $the_body = "<div class=\"sola_t_body\">&ldquo;" . apply_filters("sola_t_filter_content",$sola_t_edited_contents)."&rdquo;</div>";
+            }
+
         } else {
             $the_body = "";
         }
@@ -116,8 +146,13 @@ function sola_t_all_testimonials($atts){
                 $website_name = $website;
             }
             if($website != "" && $website != "http://"){
-                $the_website = "
-                    <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" rel=\"nofollow\" >".$website_name."</a>"."</span>";
+                if ( $material_design ) { 
+                    $the_website = "
+                        <span class=\"sola_t_website\"><a href=\"".$website."\" target=\"_BLANK\" rel=\"nofollow\">".$website_name."</a>"."</span>";
+                } else {
+                    $the_website = "
+                        <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" rel=\"nofollow\" >".$website_name."</a>"."</span>";
+                }
             } else {
                 $the_website = "<span class=\"sola_t_website\">&nbsp;</span>";
             }
@@ -126,7 +161,9 @@ function sola_t_all_testimonials($atts){
         }
         $the_website = apply_filters("sola_t_filter_website_wrap",$the_website,$website,$website_name);
 
+        
         if(isset($show_rating) && $show_rating == 1){
+
             if($rating = get_post_meta($post->ID, 'sola_t_rating', true)){
                 $the_rating = '<div class="sola_t_display_rating" score="'.$rating.'"></div>';
             } else {
@@ -136,7 +173,7 @@ function sola_t_all_testimonials($atts){
             $the_rating = "";
         }
             
-        $layouts = get_option('sola_t_style_settings');
+        
         
         if (isset($layouts['image_layout'])) {
             $image = $layouts['image_layout'];
@@ -172,6 +209,10 @@ function sola_t_all_testimonials($atts){
             $class = "";
         }
 
+
+
+
+
         $secure = sola_t_is_secure();
         
         if($secure){
@@ -179,6 +220,7 @@ function sola_t_all_testimonials($atts){
         } else {
             $http_req = "http://";
         }
+
         
         if(isset($show_image) && $show_image == 1){ 
             
@@ -211,8 +253,10 @@ function sola_t_all_testimonials($atts){
 
                     $author_email_address = $sola_t_user_email;
 
-                    $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=$image_size&d=mm";
+                    $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=".$image_size."&d=mm";
                     $the_image_url = $grav_url;
+                    
+                    if (isset($display_size)) { $image_size = $display_size; } /* retina size change */
 
                     $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\"/></div>";
 
@@ -220,8 +264,10 @@ function sola_t_all_testimonials($atts){
 
                     $author_email_address = get_the_author_meta('user_email');
 
-                    $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=$image_size&d=mm";
+                    $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=".$image_size."&d=mm";
                     $the_image_url = $grav_url;
+
+                    if (isset($display_size)) { $image_size = $display_size; } /* retina size change */
 
                     $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\"/></div>";
                 }
@@ -235,6 +281,8 @@ function sola_t_all_testimonials($atts){
             "title" => get_the_title(),
             "author_email" => $author_email_address
         );
+
+        
 
         $the_image = apply_filters("sola_t_filter_author_image",$the_image,$data_array);
         
@@ -250,6 +298,7 @@ function sola_t_all_testimonials($atts){
             "the_name" => $the_name,
             "the_website" => $the_website
         );
+
         $structure = apply_filters("sola_t_filter_structure","",$data_array);
         
         $data_array = array(
@@ -259,7 +308,9 @@ function sola_t_all_testimonials($atts){
             "structure" => $structure
 
         );
+
         $content = apply_filters("sola_t_filter_layout","",$data_array);
+
 
                
     $ret .= $content;
@@ -356,6 +407,33 @@ function sola_st_filter_control_structure($content,$data) {
                 </div>";
 
             break;
+        
+
+        case 'theme-7':
+            $structure = "
+                <div class=\"sola_t_container sola_material\">
+                    <div class=\"sola_material_image\">
+                        ".$data['the_image']."
+                    </div>
+
+                    <div class=\"sola_t_container_body\">
+                        ".$data['title']."
+                        ".$data['the_name']."
+                        ".$data['the_rating']."
+                        ".$data['the_body']."
+                    </div>
+                    <div class='meta-container'>
+                        
+                        <div class=\"sola_t_meta_data\">
+                            
+                            ".$data['the_website']."
+                        </div>
+                    </div>
+                </div>";
+
+            break;
+
+
         default:
             $structure = "
                 <div class=\"sola_t_container\">
@@ -387,7 +465,7 @@ function sola_t_ajax_callback(){
 
         if( $_POST['action'] == 'change_testimonial_page' ){
 
-            $my_query = new WP_Query('post_type=testimonials&posts_per_page='.$_POST['per_page'].'&status=publish&paged='.$_POST['page_num']);
+            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.$_POST['per_page'].'&status=publish&paged='.$_POST['page_num']);
 
             $ret = "";
 
@@ -421,6 +499,12 @@ function sola_t_ajax_callback(){
                 }
                 
                 if(isset($show_body) && $show_body == 1){
+                    
+                    /**
+                     * Added to remove additional break points at the end of testimonial content
+                     */
+                    remove_filter('the_content', 'wpautop');
+                    remove_filter('the_excerpt', 'wpautop');
                     
                     if($content_type == 0){
                         $sola_t_edited_contents = get_the_excerpt();

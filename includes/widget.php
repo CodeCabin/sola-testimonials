@@ -67,7 +67,7 @@ class Sola_Testimonials_Widget_Single extends WP_Widget {
 
 		$ret .= "<option value=''></option>";
 
-		$my_query = new WP_Query('post_type=testimonials&posts_per_page=-1&status=publish');
+		$my_query = new WP_Query('post_type=Testimonials&posts_per_page=-1&status=publish');
 
 		while ($my_query->have_posts()): $my_query->the_post(); 
 
