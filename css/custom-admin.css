@@ -29,3 +29,21 @@
 /*    padding: 10px;*/
     border-radius: 10px;
 }
+
+
+img#pro_only {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+img#pro_only:hover {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+.sola_t_theme_select  { cursor: pointer; }
+#sola_t_layout_1 { cursor: pointer; }
+#sola_t_layout_2 { cursor: pointer; }
+#sola_t_layout_3 { cursor: pointer; }
+#sola_t_layout_4 { cursor: pointer; }
+#sola_t_layout_5 { cursor: pointer; }
+#sola_t_image_1 { cursor: pointer; }
+#sola_t_image_2 { cursor: pointer; }

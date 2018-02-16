@@ -3,7 +3,7 @@ Contributors: SolaPlugins, Jarryd Long, NickDuncan, CodeCabin_
 Donate link: http://solaplugins.com
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
 Requires at least: 3.6
-Tested up to: 4.7
+Tested up to: 4.9.1
 Stable tag: trunk
 License: GPLv2
 
@@ -195,6 +195,16 @@ Showing your testimonials within a widget is easy. Simply copy and paste the sho
 Not applicable.
 
 == Changelog ==
+
+= 1.9.5 - 2018-01-17 - Low priority =
+* Improved the UX in the settings area
+* Fixed a bug with the custom post types
+* Fixed a bug where [sola_t_all_testimonials] was not working
+* Tested the plugin on WP 4.9.1
+
+= 1.9.4 - 2017-04-06 - Low Priority =
+* REST API endpoint added - get_all_testimonials
+* Styling fix - Stray double quotes added to testimonial content have been removed
 
 = 1.9.3 - 2017-01-27 - Low Priority =
 * New Shortcode Added - Ability to display the total count of your markers 
