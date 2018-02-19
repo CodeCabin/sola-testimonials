@@ -404,11 +404,12 @@ function sola_t_admin_scripts(){
 function sola_t_admin_styles(){
     wp_enqueue_style('thickbox');
     
-    wp_register_style('sola-t-jquery-ui-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.css');
-    wp_enqueue_style('sola-t-jquery-ui-css');
+	// NB: Removed as this as it overrides any other jquery UI css themes
+    //wp_register_style('sola-t-jquery-ui-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.css');
+    //wp_enqueue_style('sola-t-jquery-ui-css');
 
-    wp_register_style('sola-t-jquery-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.theme.min.css');
-    wp_enqueue_style('sola-t-jquery-css');
+    //wp_register_style('sola-t-jquery-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.theme.min.css');
+    //wp_enqueue_style('sola-t-jquery-css');
     
     wp_register_style('sola-t-custom-admin-css', SOLA_T_PLUGIN_DIR.'/css/custom-admin.css');
     wp_enqueue_style('sola-t-custom-admin-css');
