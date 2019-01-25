@@ -2,8 +2,9 @@
 Contributors: SolaPlugins, Jarryd Long, NickDuncan, CodeCabin_
 Donate link: http://solaplugins.com
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
-Requires at least: 3.6
-Tested up to: 4.9.1
+Requires at least: 4.4
+Requires PHP: 5.3
+Tested up to: 5.0.3
 Stable tag: trunk
 License: GPLv2
 
@@ -195,6 +196,12 @@ Showing your testimonials within a widget is easy. Simply copy and paste the sho
 Not applicable.
 
 == Changelog ==
+
+= 1.9.6 - 2019-01-24 - Low priority =
+* Fixed a bug where UI and other style related code loaded on all the pages
+* Tested functionality where widget - Random is not displaying
+* Tested the plugin on WP 5.0.3
+* Tested single testimonial style fix
 
 = 1.9.5 - 2018-01-17 - Low priority =
 * Improved the UX in the settings area
