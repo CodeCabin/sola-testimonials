@@ -3,16 +3,18 @@
  * Plugin Name: Sola Testimonials
  * Plugin URI: http://solaplugins.com
  * Description: A super easy to use and comprehensive Testimonial plugin.
- * Version: 1.9.5
+ * Version: 1.9.6
  * Author: Sola Plugins
  * Author URI: http://solaplugins.com
  * License: GPL2
  */
 
 /**
- * 1.9.6 - 2018-01-17 - Low priority
- * Added Gutenberg Blocks integration to display a single testimonial
- * Added Gutenberg Blocks integration to display a all testimonials
+ * 1.9.6 - 2019-01-24 - Low priority
+ * Fixed a bug where UI and other style related code loaded on all the pages
+ * Tested functionality where widget - Random is not displaying
+ * Tested the plugin on WP 5.0.3
+ * Tested single testimonial style fix
  *
  * 1.9.5 - 2018-01-17 - Low priority
  * Improved the UX in the settings area
@@ -146,8 +148,8 @@ require_once 'includes/shortcodes.php';
 require_once 'includes/widget.php';
 
 // Gutenberg Blocks
-include "includes/gutenberg-blocks/single-testimonial/index.php";
-include "includes/gutenberg-blocks/all-testimonials/index.php";
+// include "includes/gutenberg-blocks/single-testimonial/index.php";
+// include "includes/gutenberg-blocks/all-testimonials/index.php";
 
 add_action( 'widgets_init', 'sola_t_register_widgets' );
 
@@ -166,6 +168,8 @@ global $sola_t_version_string;
 
 $sola_t_version = "1.9.5";
 $sola_t_version_string = "Basic";
+
+
 
 function sola_t_register_widgets(){
     
@@ -402,16 +406,22 @@ function sola_t_admin_scripts(){
 }
 
 function sola_t_admin_styles(){
-    wp_enqueue_style('thickbox');
-    
-    wp_register_style('sola-t-jquery-ui-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.css');
-    wp_enqueue_style('sola-t-jquery-ui-css');
+    /* Settings and Feedback pages for if statement */
+    $pages = array('sola_t_settings', 'sola_t_feedback');
 
-    wp_register_style('sola-t-jquery-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.theme.min.css');
-    wp_enqueue_style('sola-t-jquery-css');
+    /* Check if user is viewing our admin pages */
+    if((!empty($_GET['page']) && in_array($_GET['page'], $pages)) || (!empty('sola_t_subm_forms' === get_post_type())) || (!empty('testimonials' === get_post_type())) || (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'sola_t_categories') ){
+        wp_enqueue_style('thickbox');
     
-    wp_register_style('sola-t-custom-admin-css', SOLA_T_PLUGIN_DIR.'/css/custom-admin.css');
-    wp_enqueue_style('sola-t-custom-admin-css');
+        wp_register_style('sola-t-jquery-ui-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.css');
+        wp_enqueue_style('sola-t-jquery-ui-css');
+    
+        wp_register_style('sola-t-jquery-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.theme.min.css');
+        wp_enqueue_style('sola-t-jquery-css');
+        
+        wp_register_style('sola-t-custom-admin-css', SOLA_T_PLUGIN_DIR.'/css/custom-admin.css');
+        wp_enqueue_style('sola-t-custom-admin-css');
+       }
 }
 
 function sola_t_front_end_styles(){
@@ -420,7 +430,7 @@ function sola_t_front_end_styles(){
 
     wp_register_style('sola-t-theme-css', SOLA_T_PLUGIN_DIR.'/css/themes.css');
     wp_enqueue_style('sola-t-theme-css');
-    
+
 
 }
 
@@ -1079,3 +1089,4 @@ function sola_t_return_testimonial_count( $atts ){
     }
 
 }
+
