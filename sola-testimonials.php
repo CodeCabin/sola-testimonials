@@ -121,7 +121,7 @@
 
 define('SOLA_T_PLUGIN_NAME', 'Sola Testimonials');
 define('SOLA_T_SITE_URL', site_url());
-define('SOLA_T_PLUGIN_DIR', plugins_url().'/sola-testimonials');
+define('SOLA_T_PLUGIN_DIR', plugin_dir_url( __FILE__ ));
 
 add_action('init', 'sola_t_init');
 add_action('init', 'sola_t_post_type');
