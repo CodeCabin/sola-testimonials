@@ -9,7 +9,8 @@ add_shortcode('sola_testimonials_all', 'sola_t_all_testimonials');
 function sola_t_all_testimonials($atts){
 
     global $post;
-    
+
+    sola_t_load_on_page_with_shortcode();
 
     $options = get_option('sola_t_options_settings');
     $layouts = get_option('sola_t_style_settings');
@@ -341,6 +342,12 @@ function sola_t_all_testimonials($atts){
     
     return $ret;
     wp_reset_query();
+}
+
+
+function sola_t_load_on_page_with_shortcode() {
+     sola_t_front_end_styles();
+     sola_t_front_end_scripts();
 }
 
 

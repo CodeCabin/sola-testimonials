@@ -10,6 +10,10 @@
  */
 
 /**
+ * 1.9.7 - 2019-05-28 - Low priority
+ * Stopped enqueuing of sola testmonial files where short code is not present
+ * Tested the plugin on WP 5.2.1 
+ *
  * 1.9.6 - 2019-01-24 - Low priority
  * Fixed a bug where UI and other style related code loaded on all the pages
  * Tested functionality where widget - Random is not displaying
@@ -136,8 +140,7 @@ add_action('manage_posts_custom_column', 'sola_t_populate_columns');
 //add_action('widgets_init', 'sola_t_widget_register');
 add_action('admin_enqueue_scripts', 'sola_t_admin_styles');
 add_action('admin_enqueue_scripts', 'sola_t_admin_scripts');
-add_action('wp_enqueue_scripts', 'sola_t_front_end_styles',99);
-add_action('wp_enqueue_scripts', 'sola_t_front_end_scripts', 99);
+
 add_action('admin_head','sola_t_admin_head');
 add_action('wp_head','sola_t_user_head');
 
