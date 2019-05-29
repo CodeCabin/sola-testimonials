@@ -198,11 +198,13 @@ Not applicable.
 == Changelog ==
 
 
-= 1.9.7 - 2019-01-24 - Low priority =
-* Stopped enqueuing of sola testmonial files where short code is not present
-* Tested the plugin on WP 5.2.1
+= 1.9.8 - 2019-05-29 - Low priority =
+* Added hook for pro files to hook into so we don't load pro files on pages without shortcode
 
-= 1.9.6 - 2019-01-24 - Low priority =
+= 1.9.7 - 2019-05-28 - Low priority =
+* Stopped enqueuing of sola testmonial files where short code is not present
+
+= 1.9.6 - 2019-05-24 - Low priority =
 * Fixed a bug where UI and other style related code loaded on all the pages
 * Tested functionality where widget - Random is not displaying
 * Tested the plugin on WP 5.0.3
