@@ -3,18 +3,16 @@
  * Plugin Name: Sola Testimonials
  * Plugin URI: http://solaplugins.com
  * Description: A super easy to use and comprehensive Testimonial plugin.
- * Version: 1.9.8
+ * Version: 1.9.6
  * Author: Sola Plugins
  * Author URI: http://solaplugins.com
  * License: GPL2
  */
 
 /**
- * 1.9.8 - 2019-05-29 - Low priority
- * Added hook for pro files to hook into so we don't load pro files on pages without shortcode
- *
  * 1.9.7 - 2019-05-28 - Low priority
  * Stopped enqueuing of sola testmonial files where short code is not present
+ * Tested the plugin on WP 5.2.1 
  *
  * 1.9.6 - 2019-01-24 - Low priority
  * Fixed a bug where UI and other style related code loaded on all the pages
@@ -127,7 +125,7 @@
 
 define('SOLA_T_PLUGIN_NAME', 'Sola Testimonials');
 define('SOLA_T_SITE_URL', site_url());
-define('SOLA_T_PLUGIN_DIR', plugins_url().'/sola-testimonials');
+define('SOLA_T_PLUGIN_DIR', plugin_dir_url( __FILE__ ));
 
 add_action('init', 'sola_t_init');
 add_action('init', 'sola_t_post_type');
