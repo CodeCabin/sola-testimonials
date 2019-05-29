@@ -348,6 +348,8 @@ function sola_t_all_testimonials($atts){
 function sola_t_load_on_page_with_shortcode() {
      sola_t_front_end_styles();
      sola_t_front_end_scripts();
+
+     do_action('sola_t_load_scripts_hook');
 }
 
 
