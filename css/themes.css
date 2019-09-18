@@ -92,5 +92,11 @@
     text-align: center;
 }
 
+#menu-posts-testimonials:hover .dashicons-testimonial:before {
+    color: #eb6953 !important;
+}
 
+.wp-has-submenu .wp-has-current-submenu .wp-menu-open .menu-top .menu-icon-testimonials .menu-top-last .dashicons-testimonial:before {
+    color:#eb6953 !important;
+}
 

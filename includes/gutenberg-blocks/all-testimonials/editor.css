@@ -1,1 +1,31 @@
-/* Block editor styles */
+.select_random{
+    margin: 20px 0;
+}
+
+
+.select_pagination{
+    margin: 20px 0;
+}
+
+.edit-post-settings-sidebar__panel-block .components-panel__body .components-base-control {
+    margin-bottom: 0 !important;
+}
+
+.select_cat{
+    margin: 20px 0;
+}
+
+.pro_only_label{
+    font-size: 20px;
+    /* text-align: center; */
+    margin-left: 50px;
+    padding: 10px;
+    background-color: #eb6953;
+    border-radius: 10px;
+    margin: 45px 50px;
+
+}
+
+.slider_div{
+    margin-top: 25px;
+}
