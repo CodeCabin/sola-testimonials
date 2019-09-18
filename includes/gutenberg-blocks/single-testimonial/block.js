@@ -1,128 +1,132 @@
 /* BLOCK: Sola Testimonial - Single Testimonial */
+var el = wp.element.createElement,
+registerBlockType = wp.blocks.registerBlockType,
+ServerSideRender = wp.components.ServerSideRender,
+TextControl = wp.components.TextControl,
+SelectControl = wp.components.SelectControl,
+InspectorControls = wp.editor.InspectorControls
 
-( function() {
+/* Register Block Type - Single Testimonials */
+registerBlockType( 'sola-t-single-testimonial-gutenberg-block/sola-t-single-testimonial-gutenberg-registration', {
+	title: 'Sola Testimonial - Single',
+	icon: 'admin-users',
+	category: 'widgets',
 
-	var __ = wp.i18n.__;
-	var el = wp.element.createElement;
-	var Editable = wp.blocks.Editable;
-	var children = wp.blocks.source.children;
-	var registerBlockType = wp.blocks.registerBlockType;
-
-	var block_heading = '<h3>Single Testimonial</h3>';
-	var block_content = single_testimonial.content;
-	var select_content = single_testimonial.testimonial_ids;
-
-	registerBlockType( 'sola-testimonials/sola-single', {
-		title: __( 'Single Testimonial (Sola)', 'SOLA_T' ),
-		icon: 'format-quote',
-		category: 'common',
-		attributes: {
-			content: children( 'p' ),
+	attributes: {
+		alignment: {
+			type: 'string',
+			default: 'center'
 		},
-
-		edit: function( props ) {
-
-			var content = props.attributes.content;
-			var focus = props.focus;
-
-			function onChangeContent( newContent ) {
-				props.setAttributes( { content: newContent } );
-			}
-
-			jQuery(document).on('change', '.sola_t_gutenberg_id_select', function(){
-				var id = jQuery(this).val();
-				props.setAttributes( { content: id } );
-			});
-
-			var testimonial_content = el(
-				'div',
-				{ 	
-					dangerouslySetInnerHTML: { __html: '' } 
-				},
-			);
-
-			var header_content = el(
-				'div',
-				{ 	
-					dangerouslySetInnerHTML: { __html: block_heading },
-				},
-			);
-
-			var id_select = el(
-				'span',
-				{ 	
-					dangerouslySetInnerHTML: { __html: select_content } 
-				},
-			);
-
-			var testimonial_icon = el(
-				'span',
-				{ className: 'sola_t_gutenberg_preview_icon dashicons dashicons-format-quote' }
-			);
-
-			var testimonial_display = el(
-				'div',
-				{ className: 'sola_t_gutenberg_display' },
-				testimonial_icon
-			);
-
-			var styles = {
-				display: 'none'
-			}
-
-			var editable_content = el(
-				Editable,
-				{ 	
-					tagName: 'p',
-					id: 'sola-testimonial-gutenberg',
-					value: content,
-					onChange: onChangeContent,
-					focus: focus,
-					onFocus: props.setFocus,
-					style: styles
-				},
-			);
-
-			var label = el(
-				'label',
-				{ 
-					id: 'sola_t_gutenberg_select_label'
-				},
-				'Select a Testimonial: '
-			);
-
-			var select_testimonial_id = el(
-				'div',
-				{
-					className: 'sola_t_gutenberg_select_section'
-				},
-				label,
-				id_select
-				
-			);
-
-			return el(
-				'div',
-				{ id: 'sola-testimonial-gutenberg', className: 'sola_t_single' },
-				header_content,
-				select_testimonial_id,
-				testimonial_display,
-				editable_content
-				
-			);
+		testimonial_single:{
+			type: 'string',
 		},
+		testimonial_random:{
+			type: 'boolean',
+		}
 
-		save: function( props ) {	
+	  },
+   
+	edit: function(props){
 
-			var content = '[sola_testimonial id=' + props.attributes.content + ']';
+	/* Functions */
 
-			return el(
-				'div',
-				{ 	id: 'sola-testimonial-gutenberg',
-					dangerouslySetInnerHTML: { __html: content } 
-				},
-			);
+	//Alignment Function
+	function onChangeAlignment( updatedAlignment ) {
+		props.setAttributes( { alignment: updatedAlignment } );
+	}
+
+	//Random Testimonial Function
+	function onChangeTestimonial(testimonial_random_t) {
+		if(props.attributes.testimonial_random = 'true'){
+		props.setAttributes( { testimonial_random: testimonial_random_t } );
+		}
+	}
+
+	//Random Button
+	random_testimonial_button = el( wp.components.ToggleControl, {
+		testimonial_random: props.attributes.testimonial_random,
+		label: "Random",
+		checked: !!props.attributes.testimonial_random ,
+		 help: "This will display a random testimonial",
+		 onChange: onChangeTestimonial,
+	 } );
+
+	 //Add random button to div
+	random_button_div = el(
+		'div',
+		{ class: 'select_random'
+	  },
+	  random_testimonial_button
+	);
+
+	//Allignment Label
+	alignment_bar_label = el(
+		'label',
+		{ class: 'advanced_setting_label'
+	  },
+		'Align Text'
+	);
+
+	//Select testimonial Label
+	select_testimonial_label = el(
+		'label',
+		{ class: 'select_single_testimonial_label'
+	  },
+		'Select Testimonial'
+	);
+
+	//Allignment Label dropdown
+	select_random_testimonial = el(
+		'a',
+		{ class: 'button button-secondary'
+	  },
+		'Display Random Testimonial'
+	);
+
+	//align setting
+	alignment_bar = el(
+		wp.blockEditor.AlignmentToolbar, { alignment: props.attributes.alignment, onChange: onChangeAlignment 				
 		},
-	} );
-})();
+		'Align Text',
+	);
 
+	var PanelBody = wp.components.PanelBody;
+
+return [
+
+		el( ServerSideRender, {
+			block: 'sola-t-single-testimonial-gutenberg-block/sola-t-single-testimonial-gutenberg-registration',
+			attributes: props.attributes,
+		} ),
+
+		el( InspectorControls, {},
+			el( wp.components.SelectControl, {
+				label: 'Please Choose A Testimonial',
+				value: props.attributes.testimonial_single,
+				onChange: ( value ) => { props.setAttributes( { testimonial_single: value } ); },
+				options: single_testimonial,
+				disabled: props.attributes.testimonial_random,
+			} )
+		   ),
+	
+		add_controols_to_divs = el(
+			InspectorControls,
+			null,
+			add_controols_to_divs_2 = el(PanelBody, {
+				title: 'Sola Single Testimonial Settings',
+				initialOpen: true,  
+			},
+			alignment_bar_label,
+			alignment_bar,
+			random_button_div
+			) 
+		),
+
+		
+];
+},
+save: function(props) {
+	//return null because this is being rendered by PHP (includes/gutenberg-block/index.php)
+	return null;
+}
+});

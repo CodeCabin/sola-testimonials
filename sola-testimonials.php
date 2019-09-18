@@ -3,13 +3,19 @@
  * Plugin Name: Sola Testimonials
  * Plugin URI: http://solaplugins.com
  * Description: A super easy to use and comprehensive Testimonial plugin.
- * Version: 1.9.6
+ * Version: 1.9.8
  * Author: Sola Plugins
  * Author URI: http://solaplugins.com
  * License: GPL2
  */
 
 /**
+ * 1.9.8 - 2019-09-18 - Medium priority
+ * Added ability to regenerate the REST Token
+ * Added click to copy short code
+ * Updated the post type icon
+ * Rebuild Gutenberg Blocks
+ * 
  * 1.9.7 - 2019-05-28 - Low priority
  * Stopped enqueuing of sola testmonial files where short code is not present
  * Tested the plugin on WP 5.2.1 
@@ -151,8 +157,8 @@ require_once 'includes/shortcodes.php';
 require_once 'includes/widget.php';
 
 // Gutenberg Blocks
-// include "includes/gutenberg-blocks/single-testimonial/index.php";
-// include "includes/gutenberg-blocks/all-testimonials/index.php";
+ include "includes/gutenberg-blocks/single-testimonial/index.php";
+ include "includes/gutenberg-blocks/all-testimonials/index.php";
 
 add_action( 'widgets_init', 'sola_t_register_widgets' );
 
@@ -581,6 +587,7 @@ function sola_t_post_type() {
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
+        'menu_icon'          => 'dashicons-testimonial',
         'menu_position'      => null,
         'supports'           => array( 'title', 'editor', 'thumbnail'),
      

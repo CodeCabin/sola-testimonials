@@ -19,7 +19,7 @@ if(function_exists('sola_t_register_pro')){
 <tr>
     <th><label for=""><?php _e('Display A Single Testimonial', 'sola_t'); ?></label></th>
     <td>        
-        <input type="text" readonly value="[sola_testimonial id=1]"/>
+        <input type="text" readonly id="sola_testimonials_single_shortcode" value="[sola_testimonial id=1]"/>
         <p class="description"><?php _e('Show off a single tesimonial. Use the ID of the testimonial.', 'sola_t'); ?></p>
     </td>
 </tr>
@@ -31,7 +31,7 @@ if(function_exists('sola_t_register_pro')){
 <tr>
     <th><label for=""><?php _e('Display All Testimonials', 'sola_t'); ?></label></th>
     <td>        
-        <input type="text" readonly value="[sola_t_all_testimonials]"/>
+        <input type="text" readonly id="sola_testimonials_all_shortcode" value="[sola_t_all_testimonials]"/>
         <p class="description"><?php _e('Show off your raving reviews all on one page', 'sola_t'); ?></p>
     </td>
 </tr>
@@ -43,7 +43,7 @@ if(function_exists('sola_t_register_pro')){
 <tr>
     <th><label for=""><?php _e('Display All Testimonials With Pagination', 'sola_t'); ?></label></th>
     <td>        
-        <input type="text" readonly value="[sola_t_all_testimonials per_page=2]" style='width: 300px;'/>
+        <input type="text" readonly id="sola_testimonials_all_pagination_shortcode" value="[sola_t_all_testimonials per_page=2]" style='width: 300px;'/>
         <p class="description"><?php _e('Specify how many testimonials you would like per page', 'sola_t'); ?></p>
     </td>
 </tr>
@@ -83,3 +83,99 @@ if(function_exists('sola_t_register_pro')){
         </tr>";
 }
 ?>
+<script>
+//Click to copy shortcode - BASIC Features
+ jQuery(function($) {
+    $(window).on("load", function() {
+
+        //Pagination shortcode
+        document.getElementById('sola_testimonials_all_pagination_shortcode').onclick = function() {
+            this.select();
+            document.execCommand('copy');
+            var $tmp2 = jQuery('<span  width:100%; text-align:center;">Copied to Clipboard</span>');
+            jQuery('#sola_testimonials_all_pagination_shortcode').after($tmp2);
+            jQuery($tmp2).fadeIn();
+                setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+                setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+        }
+
+        //Single Shortcode
+        document.getElementById('sola_testimonials_single_shortcode').onclick = function() {
+            this.select();
+            document.execCommand('copy');
+            var $tmp2 = jQuery('<span width:100%; text-align:center;">Copied to Clipboard</span>');
+            jQuery('#sola_testimonials_single_shortcode').after($tmp2);
+            jQuery($tmp2).fadeIn();
+                setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+                setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+        }
+
+        //All testimonials shortcode
+        document.getElementById('sola_testimonials_all_shortcode').onclick = function() {
+            this.select();
+            document.execCommand('copy');
+            
+            var $tmp2 = jQuery('<span  width:100%; text-align:center;">Copied to Clipboard</span>');
+            jQuery('#sola_testimonials_all_shortcode').after($tmp2);
+            jQuery($tmp2).fadeIn();
+                setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+                setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+        }
+    });
+});
+
+//Click to copy shortcode - Pro Features
+if(is_pro_active.pro_active == 'true'){
+    jQuery(function($) {
+        $(window).on("load", function() {
+
+            //Testimonials Slider
+            document.getElementById('sola_testimonials_slider_shortcode').onclick = function() {
+                this.select();
+                document.execCommand('copy');
+                var $tmp2 = jQuery('<span  width:100%; text-align:center;">Copied to Clipboard</span>');
+                jQuery('#sola_testimonials_slider_shortcode').after($tmp2);
+                jQuery($tmp2).fadeIn();
+                    setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+                    setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+            }
+
+            //Submit form shortcode
+            document.getElementById('sola_testimonials_submit_form_shortcode').onclick = function() {
+                this.select();
+                document.execCommand('copy'); 
+                var $tmp2 = jQuery('<span  width:100%; text-align:center;">Copied to Clipboard</span>');
+                jQuery('#sola_testimonials_submit_form_shortcode').after($tmp2);
+                jQuery($tmp2).fadeIn();
+                    setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+                    setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+            }
+
+            //Slider Caegories shortcode
+            document.getElementById('sola_testimonials_slider_cat_shortcode').onclick = function() {
+                this.select();
+                document.execCommand('copy'); 
+                var $tmp2 = jQuery('<span  width:100%; text-align:center;">Copied to Clipboard</span>');
+                jQuery('#sola_testimonials_slider_cat_shortcode').after($tmp2);
+                jQuery($tmp2).fadeIn();
+                    setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+                    setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+            }
+
+            //Categories Shortcode
+            document.getElementById('sola_testimonials_all_cat_shortcode').onclick = function() {
+                this.select();
+                document.execCommand('copy'); 
+                var $tmp2 = jQuery('<span  width:100%; text-align:center;">Copied to Clipboard</span>');
+                jQuery('#sola_testimonials_all_cat_shortcode').after($tmp2);
+                jQuery($tmp2).fadeIn();
+ 			        setTimeout(function(){ jQuery($tmp2).fadeOut(); }, 1000);
+ 			        setTimeout(function(){ jQuery($tmp2).remove(); }, 1500);
+            }
+
+        });
+
+    });
+
+}
+</script>

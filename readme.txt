@@ -4,7 +4,7 @@ Donate link: http://solaplugins.com
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
 Requires at least: 4.4
 Requires PHP: 5.3
-Tested up to: 5.2.1
+Tested up to: 5.2.3
 Stable tag: trunk
 License: GPLv2
 
@@ -197,6 +197,12 @@ Not applicable.
 
 == Changelog ==
 
+
+= 1.9.8 - 2019-09-18 - Medium priority =
+* Added ability to regenerate the REST Token
+* Added click to copy short code
+* Updated the post type icon
+* Rebuild Gutenberg Blocks
 
 = 1.9.7 - 2019-01-24 - Low priority =
 * Stopped enqueuing of sola testmonial files where short code is not present
