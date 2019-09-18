@@ -199,10 +199,10 @@ Not applicable.
 
 
 = 1.9.8 - 2019-09-18 - Medium priority =
-* Added abillity to regenrate the REST Token
-* Added click to copy shortcode
+* Added ability to regenerate the REST Token
+* Added click to copy short code
 * Updated the post type icon
-* Rebuilded Gutenberg Blocks
+* Rebuild Gutenberg Blocks
 
 = 1.9.7 - 2019-01-24 - Low priority =
 * Stopped enqueuing of sola testmonial files where short code is not present

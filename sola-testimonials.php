@@ -11,18 +11,14 @@
 
 /**
  * 1.9.8 - 2019-09-18 - Medium priority
- * Added abillity to regenrate the REST Token
- * Added click to copy shortcode
+ * Added ability to regenerate the REST Token
+ * Added click to copy short code
  * Updated the post type icon
- * Rebuilded Gutenberg Blocks
+ * Rebuild Gutenberg Blocks
  * 
  * 1.9.7 - 2019-05-28 - Low priority
  * Stopped enqueuing of sola testmonial files where short code is not present
  * Tested the plugin on WP 5.2.1 
- * Added abillity to regenrate the REST Token
- * Added click to copy shortcode
- * Updated the post type icon
- * Rebuild Gutenberg Blocks
  *
  * 1.9.6 - 2019-01-24 - Low priority
  * Fixed a bug where UI and other style related code loaded on all the pages
