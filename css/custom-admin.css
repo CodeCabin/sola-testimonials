@@ -47,3 +47,7 @@ img#pro_only:hover {
 #sola_t_layout_5 { cursor: pointer; }
 #sola_t_image_1 { cursor: pointer; }
 #sola_t_image_2 { cursor: pointer; }
+
+.create_category{
+    margin: 10px 0;
+}

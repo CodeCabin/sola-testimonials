@@ -10,11 +10,12 @@
  */
 
 /**
- * 1.9.8 - 2019-09-18 - Medium priority
+ * 1.9.8 - 2019-10-30 - Medium priority
  * Added ability to regenerate the REST Token
  * Added click to copy short code
  * Updated the post type icon
  * Rebuild Gutenberg Blocks
+ * Fixed errors when you disable settings in "Options" page
  * 
  * 1.9.7 - 2019-05-28 - Low priority
  * Stopped enqueuing of sola testmonial files where short code is not present

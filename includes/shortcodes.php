@@ -160,7 +160,9 @@ function sola_t_all_testimonials($atts){
         } else {
             $the_website = "<span class=\"sola_t_website\">&nbsp;</span>";
         }
-        $the_website = apply_filters("sola_t_filter_website_wrap",$the_website,$website,$website_name);
+        if(isset($show_website) && $show_website == 1){
+            $the_website = apply_filters("sola_t_filter_website_wrap",$the_website,$website,$website_name);
+        }
 
         
         if(isset($show_rating) && $show_rating == 1){
@@ -277,11 +279,14 @@ function sola_t_all_testimonials($atts){
         } else {
             $the_image = "";
         }
-        $data_array = array(
-            "url" => $the_image_url,
-            "title" => get_the_title(),
-            "author_email" => $author_email_address
-        );
+        $data_array = [];
+        if(isset($sola_t_user_email) && $sola_t_user_email != "" && !empty($sola_t_user_email) && isset($sola_t_custom_image) && $sola_t_custom_image != "" && !empty($sola_t_custom_image)){
+            $data_array = array(
+                "url" => $the_image_url,
+                "title" => get_the_title(),
+                "author_email" => $author_email_address
+            );
+        }
 
         
 
