@@ -5,11 +5,14 @@ if(version_compare(get_bloginfo('version'),'5.0', '>=') ){
 	**/
 	function sola_t_single_testimonial_block_editor_assets() {
  
- 		wp_register_style(
-     	'sola_t_single_testimonial-gutenberg-editor',
-     	SOLA_T_PLUGIN_DIR.'/includes/gutenberg-blocks/single-testimonial/editor.css',
-     	array( 'wp-edit-blocks' )
- 		);
+		if(is_admin())
+		{
+			wp_register_style(
+			'sola_t_single_testimonial-gutenberg-editor',
+			SOLA_T_PLUGIN_DIR.'/includes/gutenberg-blocks/single-testimonial/editor.css',
+			array( 'wp-edit-blocks' )
+			);
+		}
 
  		wp_register_style(
      	'sola_t_single_testimonial-gutenberg-style',
@@ -17,16 +20,19 @@ if(version_compare(get_bloginfo('version'),'5.0', '>=') ){
      	array( )   
 		 );
 		 
- 		wp_register_script(
-     	'sola-t-single-testimonial-gutenberg-registration',
-     	SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/single-testimonial/block.js',
-     	array(
-			'wp-blocks', 
-			'wp-element', 
-			'wp-components', 
-			'wp-editor'
-     	)
- 		);
+		if(is_admin())
+		{
+			wp_register_script(
+			'sola-t-single-testimonial-gutenberg-registration',
+			SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/single-testimonial/block.js',
+			array(
+				'wp-blocks', 
+				'wp-element', 
+				'wp-components', 
+				'wp-editor'
+			)
+			);
+		}
 
 		register_block_type( 'sola-t-single-testimonial-gutenberg-block/sola-t-single-testimonial-gutenberg-registration', array(
     		'attributes' => array(
