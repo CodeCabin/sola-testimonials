@@ -5,28 +5,28 @@ if(version_compare(get_bloginfo('version'),'5.0', '>=') ){
 	**/
 	function sola_t_single_testimonial_block_editor_assets() {
  
- 		wp_register_style(
-     	'sola_t_single_testimonial-gutenberg-editor',
-     	SOLA_T_PLUGIN_DIR.'/includes/gutenberg-blocks/single-testimonial/editor.css',
-     	array( 'wp-edit-blocks' )
- 		);
-
- 		wp_register_style(
-     	'sola_t_single_testimonial-gutenberg-style',
-     	SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/single-testimonial/style.css',
-     	array( )   
-		 );
+		if(is_admin())
+		{
+			wp_register_style(
+			'sola_t_single_testimonial-gutenberg-editor',
+			SOLA_T_PLUGIN_DIR.'/includes/gutenberg-blocks/single-testimonial/editor.css',
+			array( 'wp-edit-blocks' )
+			);
+		}
 		 
- 		wp_register_script(
-     	'sola-t-single-testimonial-gutenberg-registration',
-     	SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/single-testimonial/block.js',
-     	array(
-			'wp-blocks', 
-			'wp-element', 
-			'wp-components', 
-			'wp-editor'
-     	)
- 		);
+		if(is_admin())
+		{
+			wp_register_script(
+			'sola-t-single-testimonial-gutenberg-registration',
+			SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/single-testimonial/block.js',
+			array(
+				'wp-blocks', 
+				'wp-element', 
+				'wp-components', 
+				'wp-editor'
+			)
+			);
+		}
 
 		register_block_type( 'sola-t-single-testimonial-gutenberg-block/sola-t-single-testimonial-gutenberg-registration', array(
     		'attributes' => array(
@@ -105,6 +105,25 @@ if(version_compare(get_bloginfo('version'),'5.0', '>=') ){
 		}
 
 	}
+
+	add_action( 'wp_enqueue_scripts', 'sola_t_single_enqueue_styles' );
+
+	function sola_t_single_enqueue_styles() {
+ 
+		// Register script
+		wp_register_style(
+			'sola_t_single_testimonial-gutenberg-style',
+			SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/single-testimonial/style.css',
+			array( )   
+			);
+			
+		//Only load style if the block is present
+		if(has_block('sola-t-single-testimonial-gutenberg-block/sola-t-single-testimonial-gutenberg-registration')){
+			wp_enqueue_style( 'sola_t_single_testimonial-gutenberg-style' );
+		} 
+	}
 }
 add_action( 'init', 'sola_t_single_testimonial_block_editor_assets' );
+
+
 

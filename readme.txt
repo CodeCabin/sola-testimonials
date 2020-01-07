@@ -198,6 +198,9 @@ Not applicable.
 == Changelog ==
 
 
+= 1.9.9 - 2020-01-06 - Medium priority =
+* Fixed a bug where Gutenberg files loads in frontend
+
 = 1.9.8 - 2019-10-30 - Medium priority =
 * Added ability to regenerate the REST Token
 * Added click to copy short code
