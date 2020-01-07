@@ -15,13 +15,6 @@ function sola_t_all_testimonial_block_editor_assets() {
         );
     }   
    
-    wp_register_style(
-        'sola_t_all_testimonial-gutenberg-style',
-        SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/all-testimonials/style.css',
-        array( )
-        
-    );
-
     if(is_admin())
     {
         wp_register_script(
@@ -169,5 +162,23 @@ else{
     
     }
    add_action( 'init', 'sola_t_all_testimonial_block_editor_assets' );
+
+   add_action( 'wp_enqueue_scripts', 'sola_t_all_enqueue_styles' );
+
+   function sola_t_all_enqueue_styles() {
+
+       // Register script
+       wp_register_style(
+           'sola_t_all_testimonial-gutenberg-style',
+           SOLA_T_PLUGIN_DIR. '/includes/gutenberg-blocks/all-testimonials/style.css',
+           array( )
+                   
+       );
+           
+       //Only load style if the block is present
+       if(has_block('sola-t-all-testimonial-gutenberg-block/sola-t-all-testimonial-gutenberg-registration')){
+           wp_enqueue_style( 'sola_t_all_testimonial-gutenberg-style' );
+       } 
    }
+}
  
