@@ -198,8 +198,16 @@ Not applicable.
 == Changelog ==
 
 
-= 1.9.9 - 2020-01-06 - Medium priority =
+= 2.0.0 - 2020-01-08 - Medium priority =
+* Fixed a bug where styles.css loads on all pages
 * Fixed a bug where Gutenberg files loads in frontend
+
+= 1.9.9 - 2019-10-30 - Medium priority =
+* Added ability to regenerate the REST Token
+* Added click to copy short code
+* Updated the post type icon
+* Rebuild Gutenberg Blocks
+* Fixed errors when you disable settings in "Options" page
 
 = 1.9.8 - 2019-10-30 - Medium priority =
 * Added ability to regenerate the REST Token
