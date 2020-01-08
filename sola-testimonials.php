@@ -3,16 +3,23 @@
  * Plugin Name: Sola Testimonials
  * Plugin URI: http://solaplugins.com
  * Description: A super easy to use and comprehensive Testimonial plugin.
- * Version: 1.9.9
+ * Version: 2.0.0
  * Author: Sola Plugins
  * Author URI: http://solaplugins.com
  * License: GPL2
  */
 
 /**
- * 1.9.9 - 2020-01-06 - Medium priority
+ * 2.0.0 - 2020-01-08 - Medium priority
  * Fixed a bug where styles.css loads on all pages
  * Fixed a bug where Gutenberg files loads in frontend
+ * 
+ * 1.9.9 - 2019-11-14 - Medium priority
+ * Added ability to regenerate the REST Token
+ * Added click to copy short code
+ * Updated the post type icon
+ * Rebuild Gutenberg Blocks
+ * Fixed errors when you disable settings in "Options" page
  * 
  * 1.9.8 - 2019-10-30 - Medium priority
  * Added ability to regenerate the REST Token
