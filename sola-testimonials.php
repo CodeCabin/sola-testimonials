@@ -11,6 +11,7 @@
 
 /**
  * 2.0.0 - 2020-01-08 - Medium priority
+ * Tested up to WordPress 5.4
  * Fixed a bug where styles.css loads on all pages
  * Fixed a bug where Gutenberg files loads in frontend
  * 
@@ -187,7 +188,7 @@ register_uninstall_hook(__FILE__, 'sola_t_uninstall');
 global $sola_t_version;
 global $sola_t_version_string;
 
-$sola_t_version = "1.9.5";
+$sola_t_version = "2.0.0";
 $sola_t_version_string = "Basic";
 
 
