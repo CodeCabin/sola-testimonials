@@ -1,5 +1,5 @@
 === Sola Testimonials ===
-Contributors: SolaPlugins, Jarryd Long, NickDuncan, CodeCabin_
+Contributors: SolaPlugins, NickDuncan, CodeCabin_
 Donate link: http://solaplugins.com
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
 Requires at least: 4.4
@@ -199,6 +199,7 @@ Not applicable.
 
 
 = 2.0.0 - 2020-01-08 - Medium priority =
+* Tested up to WordPress 5.4
 * Fixed a bug where styles.css loads on all pages
 * Fixed a bug where Gutenberg files loads in frontend
 
