@@ -12,8 +12,8 @@ class Sola_Testimonials_Widget_Single extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'sola_testimonials_widget_single',
-			__( 'Sola Testimonials Widget - Single', 'sola_t' ), 
-			array( 'description' => __( 'Display a single testimonial by using this widget.', 'sola_t' ), )
+			__( 'Super Testimonials Widget - Single', 'sola-testimonials' ), 
+			array( 'description' => __( 'Display a single testimonial by using this widget.', 'sola-testimonials' ), )
 		);
 	}
 
@@ -49,19 +49,19 @@ class Sola_Testimonials_Widget_Single extends WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola_t' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola-testimonials' );
 
 		$chosen_testimonial  = ! empty( $instance['sola_t_chosen_testimonial'] ) ? $instance['sola_t_chosen_testimonial'] : "" ;
 
 		$ret = "";
 
 		$ret .= "<p>";
-		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "'>" . __( 'Title:', 'sola_st' ) . "</label>";
+		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "'>" . __( 'Title:', 'sola-testimonials' ) . "</label>";
 		$ret .= "<input class='widefat' id='" . $this->get_field_id( 'title' ) . "' name='" . $this->get_field_name( 'title' ) . "' type='text' value='" . esc_attr( $title ) . "'>";	
 		$ret .= "</p>";
 
 		$ret .= "<p>";
-		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "''>" . __( 'Select a testimonial:', 'sola_st' ) . "</label>";		
+		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "''>" . __( 'Select a testimonial:', 'sola-testimonials' ) . "</label>";		
 
 		$ret .= "<select name='" . $this->get_field_name( 'sola_t_chosen_testimonial' ) . "' class='widefat' id='" . $this->get_field_id( 'sola_t_chosen_testimonial' ) . "'>";
 
@@ -130,8 +130,8 @@ class Sola_Testimonials_Widget_Random extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'sola_testimonials_widget_random',
-			__( 'Sola Testimonials Widget - Random', 'sola_t' ), 
-			array( 'description' => __( 'Display a random testimonial on every page load by using this widget.', 'sola_t' ), )
+			__( 'Super Testimonials Widget - Random', 'sola-testimonials' ), 
+			array( 'description' => __( 'Display a random testimonial on every page load by using this widget.', 'sola-testimonials' ), )
 		);
 	}
 
@@ -165,12 +165,12 @@ class Sola_Testimonials_Widget_Random extends WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola_t' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola-testimonials' );
 
 		$ret = "";
 
 		$ret .= "<p>";
-		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "'>" . __( 'Title:', 'sola_st' ) . "</label>";
+		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "'>" . __( 'Title:', 'sola-testimonials' ) . "</label>";
 		$ret .= "<input class='widefat' id='" . $this->get_field_id( 'title' ) . "' name='" . $this->get_field_name( 'title' ) . "' type='text' value='" . esc_attr( $title ) . "'>";	
 		$ret .= "</p>";
 
@@ -215,8 +215,8 @@ class Sola_Testimonials_Widget_Slider_Basic extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'sola_testimonials_widget_slider_basic',
-			__( 'Sola Testimonials Widget - Slider', 'sola_t' ), 
-			array( 'description' => __( 'Display your testimonials in a slider by using this widget.', 'sola_t' ), )
+			__( 'Super Testimonials Widget - Slider', 'sola-testimonials' ), 
+			array( 'description' => __( 'Display your testimonials in a slider by using this widget.', 'sola-testimonials' ), )
 		);
 	}
 
@@ -245,13 +245,13 @@ class Sola_Testimonials_Widget_Slider_Basic extends WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola_t' );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola-testimonials' );
 
-		$pro_link = "<a href='http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_slider_widget'>" . __( 'Pro version', 'sola_st' ) . "</a>";
+		$pro_link = "<a href='http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_slider_widget'>" . __( 'Pro version', 'sola-testimonials' ) . "</a>";
 
 		$ret = "";
 
-		$ret .= "<p>". __( 'Get the ' . $pro_link . ' to display your testimonials in a slider', 'sola_t' ) . "</p>";
+		$ret .= "<p>". __( 'Get the ' . $pro_link . ' to display your testimonials in a slider', 'sola-testimonials' ) . "</p>";
 
 		$ret .= "</p>";
 
