@@ -1,4 +1,4 @@
-=== Sola Testimonials ===
+=== Super Testimonials ===
 Contributors: SolaPlugins, NickDuncan, CodeCabin_
 Donate link: http://solaplugins.com
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
@@ -8,11 +8,11 @@ Tested up to: 5.3.0
 Stable tag: trunk
 License: GPLv2
 
-The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful and modern way with Sola Testimonials.
+The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful and modern way with Super Testimonials.
 
 == Description ==
 
-The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful and modern way with Sola Testimonials.
+The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful and modern way with Super Testimonials.
 
 = Lite Features =
 * Fully comprehensive testimonial manager
@@ -53,7 +53,7 @@ The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful
 * Export testimonials into a CSV file
 * Get notified via Slack when a new testimonial has been submitted
 * Priority [support](http://solaplugins.com/support-desk) 
-* Get the [Sola Testimonials Premium Version](http://solaplugins.com/plugins/sola-testimonials/?utm_source=wordpress&utm_medium=click&utm_campaign=readme) now
+* Get the [Super Testimonials Premium Version](http://solaplugins.com/plugins/sola-testimonials/?utm_source=wordpress&utm_medium=click&utm_campaign=readme) now
 
 = Coming Soon =
 * Themes: Testimonial themes will be created and added every week
@@ -62,73 +62,73 @@ The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful
 
 = Shortcodes =
 Show all Testimonials
-`[sola_t_all_testimonials]`
+`[super_t_all_testimonials]`
 
 Show all Testimonials of a certain category
-`[sola_t_all_testimonials cat_id=6]`
+`[super_t_all_testimonials cat_id=6]`
 
 Show a random testimonial from a certain category
-`[sola_t_all_testimonials cat_id=6 random=yes]`
+`[super_t_all_testimonials cat_id=6 random=yes]`
 
 Show all Testimonials with a specific theme
-`[sola_t_all_testimonials theme=theme-1]`
+`[super_t_all_testimonials theme=theme-1]`
 
-`[sola_t_all_testimonials theme=theme-2]`
+`[super_t_all_testimonials theme=theme-2]`
 
-`[sola_t_all_testimonials theme=theme-3]`
+`[super_t_all_testimonials theme=theme-3]`
 
-`[sola_t_all_testimonials theme=theme-4]`
+`[super_t_all_testimonials theme=theme-4]`
 
-`[sola_t_all_testimonials theme=theme-5]`
+`[super_t_all_testimonials theme=theme-5]`
 
 
 Show all Testimonials with a specific layout
-`[sola_t_all_testimonials layout=layout-1]`
+`[super_t_all_testimonials layout=layout-1]`
 
-`[sola_t_all_testimonials layout=layout-2]`
+`[super_t_all_testimonials layout=layout-2]`
 
-`[sola_t_all_testimonials layout=layout-3]`
+`[super_t_all_testimonials layout=layout-3]`
 
-`[sola_t_all_testimonials layout=layout-4]`
+`[super_t_all_testimonials layout=layout-4]`
 
 Show a random testimonial
-`[sola_t_all_testimonials random=yes]`
+`[super_t_all_testimonials random=yes]`
 
 Show a single testimonial
-`[sola_testimonial id=1]`
+`[super_testimonial id=1]`
 
 Show a single testimonial with a specific theme
-`[sola_testimonial theme=theme-1 id=1]`
+`[super_testimonial theme=theme-1 id=1]`
 
 Show a single testimonial with a specific layout
-`[sola_testimonial layout=layout-1]`
+`[super_testimonial layout=layout-1]`
 
 Show all Testimonials in a responsive slider (Pro)
-`[sola_testimonial_slider]`
+`[super_testimonial_slider]`
 
 Show all Testimonials of a certain category in a responsive slider (Pro)
-`[sola_testimonial_slider cat_id=1]`
+`[super_testimonial_slider cat_id=1]`
 
 Show all Testimonials in a responsive slider (Pro)
-`[sola_testimonial_slider theme=theme-1]`
+`[super_testimonial_slider theme=theme-1]`
 
 Testimonial submit form (Pro)
-`[sola_testimonial_submit_form]`
+`[super_testimonial_submit_form]`
 
 Show all Testimonials with pagination enabled
-`[sola_t_all_testimonials per_page=2]`
+`[super_t_all_testimonials per_page=2]`
 
 Display total count of all testimonials
-`[sola_testimonials_count type='any']`
+`[super_testimonials_count type='any']`
 
 Display total count of all approved testimonials
-`[sola_testimonials_count type='approved']`
+`[super_testimonials_count type='approved']`
 
 Display total count of all pending testimonials
-`[sola_testimonials_count type='pending']`
+`[super_testimonials_count type='pending']`
 
 = Translations =
-Get a free copy of the Sola Testimonials Premium version in exchange for translating our plugin!
+Get a free copy of the Super Testimonials Premium version in exchange for translating our plugin!
 
 * English (Default)
 * Swedish (Jorgen Sjoholm)
@@ -160,11 +160,11 @@ Did you know that 90% of people trust testimonials from people they know, and th
 
 == Frequently Asked Questions ==
 
-= I've installed the Sola Testimonials plugin, now what? =
+= I've installed the Super Testimonials plugin, now what? =
 Once installed and activated, a link should appear in your left navigation panel within your wp-admin section. Click on the "Testimonials" link and follow the on screen instructions.
 
-= How do I get the premium version of Sola Testimonials? =
-Order your copy of [Sola Testimonials Premium](http://solaplugins.com/plugins/sola-testimonials/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
+= How do I get the premium version of Super Testimonials? =
+Order your copy of [Super Testimonials Premium](http://solaplugins.com/plugins/sola-testimonials/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
 
 = How do I create a Testimonial? =
 * Click on Testimonials in your left navigation menu
@@ -175,18 +175,18 @@ Order your copy of [Sola Testimonials Premium](http://solaplugins.com/plugins/so
 = What shortcodes can I use? =
 * To see all the shortcodes that are available to you, go to "Settings" under "Testimonials" and click on the "Shortcodes" tab.
 
-`[sola_testimonial id="x"]`
-`[sola_t_all_testimonials]`
+`[super_testimonial id="x"]`
+`[super_t_all_testimonials]`
 
 = How do I create a testimonial widget? =
 Showing your testimonials within a widget is easy. Simply copy and paste the shortcode of the testimonial into a text widget and press "Save". Your testimonial widget should appear on your website. Keep in mind that you should rather select an individual testimonial shortcode for a widget instead of the shortcode that dispays all the testimonials.
 
 == Screenshots ==
 
-1. Settings page of Sola Testimonials. Select your image style, layout, theme and much more.
+1. Settings page of Super Testimonials. Select your image style, layout, theme and much more.
 2. Options page
-3. Sola Testimonials example
-4. Sola Testimonials example
+3. Super Testimonials example
+4. Super Testimonials example
 5. Available testimonial shortcodes
 6. Premium add-on testimonial example
 7. Premium add-on example
@@ -218,7 +218,7 @@ Not applicable.
 * Fixed errors when you disable settings in "Options" page
 
 = 1.9.7 - 2019-01-24 - Low priority =
-* Stopped enqueuing of sola testmonial files where short code is not present
+* Stopped enqueuing of super testmonial files where short code is not present
 * Tested the plugin on WP 5.2.1
 
 = 1.9.6 - 2019-01-24 - Low priority =
@@ -230,7 +230,7 @@ Not applicable.
 = 1.9.5 - 2018-01-17 - Low priority =
 * Improved the UX in the settings area
 * Fixed a bug with the custom post types
-* Fixed a bug where [sola_t_all_testimonials] was not working
+* Fixed a bug where [super_t_all_testimonials] was not working
 * Tested the plugin on WP 4.9.1
 
 = 1.9.4 - 2017-04-06 - Low Priority =
@@ -239,7 +239,7 @@ Not applicable.
 
 = 1.9.3 - 2017-01-27 - Low Priority =
 * New Shortcode Added - Ability to display the total count of your markers 
-* [sola_testimonials_count type='any'] - type accepts 'any', 'pending', 'approved'
+* [super_testimonials_count type='any'] - type accepts 'any', 'pending', 'approved'
 * Fixed a bug that caused the testimonial status to remain approved
 
 = 1.9.2 - 2016-12-06 - Medium Priority =
@@ -317,7 +317,7 @@ Not applicable.
 * Code improvements
 * Testimonial structure improvements
 * New shortcode addition to show a random testimonial
-* Bug fix: Sola Testimonials welcome page kept showing up for some users
+* Bug fix: Super Testimonials welcome page kept showing up for some users
 * Pro: Two new testimonial themes added
 
 = 1.2 - 2014-11-24 =

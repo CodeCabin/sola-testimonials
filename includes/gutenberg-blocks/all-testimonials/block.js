@@ -1,4 +1,4 @@
-/* BLOCK: Sola Testimonial - All Testimonials */
+/* BLOCK: Super Testimonial - All Testimonials */
 
 var el = wp.element.createElement,
 registerBlockType = wp.blocks.registerBlockType,
@@ -9,7 +9,7 @@ InspectorControls = wp.editor.InspectorControls
 
 /* Register Block Type - All Testimonials */
 registerBlockType( 'sola-t-all-testimonial-gutenberg-block/sola-t-all-testimonial-gutenberg-registration', {
-	title: 'Sola Testimonials - All',
+	title: 'Super Testimonials - All',
 	icon: 'groups',
 	category: 'widgets',
 
@@ -357,7 +357,7 @@ registerBlockType( 'sola-t-all-testimonial-gutenberg-block/sola-t-all-testimonia
 			null,
 			add_controols_to_divs_2 = el(PanelBody, {
 				className: 'sola_editor_controls',
-				title: 'Sola Single Testimonial Settings',
+				title: 'Super Single Testimonial Settings',
 				initialOpen: true,	
 			},
 			alignment_bar_label,

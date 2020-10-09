@@ -4,6 +4,11 @@ add_shortcode('sola_testimonial', 'sola_t_all_testimonials');
 add_shortcode('sola_t_all_testimonials', 'sola_t_all_testimonials');
 add_shortcode('sola_testimonials_all', 'sola_t_all_testimonials');
 
+// New Super Shortcodes
+add_shortcode('super_testimonial', 'sola_t_all_testimonials');
+add_shortcode('super_t_all_testimonials', 'sola_t_all_testimonials');
+add_shortcode('super_testimonials_all', 'sola_t_all_testimonials');
+
 
 
 function sola_t_all_testimonials($atts){
@@ -28,7 +33,6 @@ function sola_t_all_testimonials($atts){
     isset($options['sola_t_content_type']) ? $content_type = $options['sola_t_content_type'] : $content_type = 0;
     
     if(isset($options['sola_st_strip_links']) && $options['sola_st_strip_links'] == 1){ $sola_t_strip_links = 1; } else { $sola_t_strip_links = 0; }
-    
 
 
     /* override image size if theme is material */
@@ -116,6 +120,9 @@ function sola_t_all_testimonials($atts){
         }
         $the_body = apply_filters("sola_t_filter_content_wrap",$the_body);
 
+        
+
+
         if(isset($show_name) && $show_name == 1){
             if($name = get_post_meta($post->ID, 'sola_t_user_name', true)) {
 //                $name = $name[0]; 
@@ -147,12 +154,18 @@ function sola_t_all_testimonials($atts){
                 $website_name = $website;
             }
             if($website != "" && $website != "http://"){
+                if(isset($options['sola_t_allow_nofollow']) && $options['sola_t_allow_nofollow'] == 1){
+                    $nofollow = 'rel=nofollow';
+                } else {
+                    $nofollow = '';
+                }
+
                 if ( $material_design ) { 
                     $the_website = "
-                        <span class=\"sola_t_website\"><a href=\"".$website."\" target=\"_BLANK\" rel=\"nofollow\">".$website_name."</a>"."</span>";
+                        <span class=\"sola_t_website\"><a href=\"".$website."\" target=\"_BLANK\" ".$nofollow.">".$website_name."</a>"."</span>";
                 } else {
                     $the_website = "
-                        <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" rel=\"nofollow\" >".$website_name."</a>"."</span>";
+                        <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" ".$nofollow." >".$website_name."</a>"."</span>";
                 }
             } else {
                 $the_website = "<span class=\"sola_t_website\">&nbsp;</span>";
@@ -335,7 +348,7 @@ function sola_t_all_testimonials($atts){
         $ret .= "   <ul>";
         
         for( $page_count = 1; $page_count <= $maximum_pages; $page_count++){
-            $ret .= "<li><a href='javascript:void(0);' class='sola_t_page' pp='".$per_page."' pnum='".$page_count."' id='sola_t_page_".$page_count."' title='".__('Page', 'sola_t') . " " . $page_count."'>".$page_count."</a></li>";
+            $ret .= "<li><a href='javascript:void(0);' class='sola_t_page' pp='".$per_page."' pnum='".$page_count."' id='sola_t_page_".$page_count."' title='".__('Page', 'sola-testimonials') . " " . $page_count."'>".$page_count."</a></li>";
         }
         
         $ret .= "</ul>";
@@ -562,8 +575,15 @@ function sola_t_ajax_callback(){
                         $website_name = $website;
                     }
                     if($website != "" && $website != "http://"){
+                        if(isset($options['sola_t_allow_nofollow']) && $options['sola_t_allow_nofollow'] == 1){
+                            $nofollow = 'rel=nofollow';
+                        } else {
+                            $nofollow = '';
+                        }
+
                         $the_website = "
-                            <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" rel=\"nofollow\" >".$website_name."</a>"."</span>";
+                            <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" ".$nofollow." >".$website_name."</a>"."</span>";
+
                     } else {
                         $the_website = "<span class=\"sola_t_website\">&nbsp;</span>";
                     }
@@ -765,7 +785,7 @@ add_action( 'wp_ajax_nopriv_sola_t_update_gutenberg_changes', 'sola_t_update_gut
 
 function sola_t_update_gutenberg_changes(){
     $id = (isset($_POST['id'])) ? $_POST['id'] : '';
-    $content = '[sola_testimonial id=' . $id . ']';
+    $content = '[super_testimonial id=' . $id . ']';
     $content = do_shortcode($content);
     $error_msg = '<p>The testimonial with the selected ID does not exist.</p>';
     $is_empty = ($content == "<div class='sola_t_container_parent'></div>") ? true : false;

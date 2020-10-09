@@ -1,12 +1,13 @@
 <?php
 /**
- * Plugin Name: Sola Testimonials
+ * Plugin Name: Super Testimonials
  * Plugin URI: http://solaplugins.com
  * Description: A super easy to use and comprehensive Testimonial plugin.
- * Version: 2.0.0
+ * Version: 3.0.0
  * Author: Sola Plugins
  * Author URI: http://solaplugins.com
  * License: GPL2
+ * Text Domain: sola-testimonials
  */
 
 /**
@@ -30,7 +31,7 @@
  * Fixed errors when you disable settings in "Options" page
  * 
  * 1.9.7 - 2019-05-28 - Low priority
- * Stopped enqueuing of sola testmonial files where short code is not present
+ * Stopped enqueuing of super testmonial files where short code is not present
  * Tested the plugin on WP 5.2.1 
  *
  * 1.9.6 - 2019-01-24 - Low priority
@@ -42,7 +43,7 @@
  * 1.9.5 - 2018-01-17 - Low priority
  * Improved the UX in the settings area
  * Fixed a bug with the custom post types
- * Fixed a bug where [sola_t_all_testimonials] was not working
+ * Fixed a bug where [super_t_all_testimonials] was not working
  * Tested the plugin on WP 4.9.1
  * 
  * 1.9.4 - 2017-04-06 - Low Priority
@@ -51,7 +52,7 @@
  * 
  * 1.9.3 - 2017-01-27 - Low Priority
  * New Shortcode Added - Ability to display the total count of your markers
- * [sola_testimonials_count type='all'] - type accepts 'all', 'pending', 'approved'
+ * [super_testimonials_count type='all'] - type accepts 'all', 'pending', 'approved'
  * Fixed a bug that caused the testimonial status to remain approved
  * 
  * 1.9.2 - 2016-12-06 - Medium Priority
@@ -129,7 +130,7 @@
  * 1.3
  * Code improvements
  * Testimonial structure improvements
- * Bug fix: Sola Testimonials welcome page kept showing up for some users
+ * Bug fix: Super Testimonials welcome page kept showing up for some users
  * New shortcode addition to show a random testimonial
  * Pro: Two new testimonial themes added
  * 
@@ -156,7 +157,7 @@ add_action('admin_menu', 'sola_t_menu');
 
 add_action('save_post', 'sola_t_save_testimonial_meta');
 add_action('manage_posts_custom_column', 'sola_t_populate_columns');
-//add_action('widgets_init', 'sola_t_widget_register');
+
 add_action('admin_enqueue_scripts', 'sola_t_admin_styles');
 add_action('admin_enqueue_scripts', 'sola_t_admin_scripts');
 
@@ -179,7 +180,6 @@ add_filter('pre_get_posts', 'sola_t_loop_control', 10);
 
 add_filter('manage_testimonials_posts_columns' , 'sola_t_columns');
 add_filter('excerpt_more', 'sola_t_read_more',999);
-//add_filter('excerpt_length', 'sola_t_excerpt_length');
 
 register_activation_hook( __FILE__, 'sola_t_activate');
 register_deactivation_hook(__FILE__, 'sola_t_deactivate');
@@ -220,7 +220,7 @@ function sola_t_init(){
     * Load Text Domain
     */
     $plugin_dir = basename(dirname(__FILE__))."/languages/";
-    load_plugin_textdomain( 'sola_t', false, $plugin_dir );
+    load_plugin_textdomain( 'sola-testimonials', false, $plugin_dir );
     
     if (isset($_POST['action']) && $_POST['action'] == 'sola_t_submit_find_us') {
         sola_t_feedback_head();
@@ -294,18 +294,19 @@ function sola_t_activate(){
     
     } 
 
-    add_role('testimonial_author', __('Testimonial Author', 'sola_t'), array('read' => true));
+    add_role('testimonial_author', __('Testimonial Author', 'sola-testimonials'), array('read' => true));
     
     $sola_t_options_settings = array(
         'show_title' => 1,
         'show_excerpt' => 1,
         'excerpt_length' => 20,
         'image_size' => 120,
-        'read_more_link' => __('Read More', 'sola_t'),
+        'read_more_link' => __('Read More', 'sola-testimonials'),
         'show_user_name' => 1,
         'show_user_web' => 1,
         'show_image' => 1,
-        'sola_t_allow_html' => 0
+        'sola_t_allow_html' => 0,
+        'sola_t_allow_nofollow' => 1
     );
     
     add_option('sola_t_options_settings', $sola_t_options_settings);
@@ -320,14 +321,14 @@ function sola_t_activate(){
     add_option('sola_t_style_settings', $sola_t_style_settings);              
     
     /* Display All Testimonials */
-    $sola_t_submit_testimonial = get_page_by_title( __('Our Testimonials', 'sola_t'), OBJECT, 'page' );
+    $sola_t_submit_testimonial = get_page_by_title( __('Our Testimonials', 'sola-testimonials'), OBJECT, 'page' );
     
     if(!$sola_t_submit_testimonial){
     
-        $sola_t_page_contents = '[sola_t_all_testimonials]';
+        $sola_t_page_contents = '[super_t_all_testimonials]';
         
         $sola_t_page = array(
-            'post_title'    => __('Our Testimonials', 'sola_t'),
+            'post_title'    => __('Our Testimonials', 'sola-testimonials'),
             'post_content'  => $sola_t_page_contents,
             'post_status'   => 'publish',
             'post_author'   => 1,
@@ -350,16 +351,17 @@ function sola_t_activate(){
 
 }
 function sola_t_deactivate(){
-    
+    /* Silence is Golden */
 }
 
 function sola_t_uninstall(){
+    /* Silence is Golder */
 //    remove_role('testimonial_author');
 }
 
 function sola_t_menu(){
-    add_submenu_page('edit.php?post_type=testimonials', __('Settings','sola_t'), __('Settings','sola_t'), 'manage_options' , 'sola_t_settings', 'sola_t_settings_page');
-    add_submenu_page('edit.php?post_type=testimonials', __('Feedback','sola_t'), __('Feedback','sola_t'), 'manage_options' , 'sola_t_feedback', 'sola_t_feedback_page');
+    add_submenu_page('edit.php?post_type=testimonials', __('Settings','sola-testimonials'), __('Settings','sola-testimonials'), 'manage_options' , 'sola_t_settings', 'sola_t_settings_page');
+    add_submenu_page('edit.php?post_type=testimonials', __('Feedback','sola-testimonials'), __('Feedback','sola-testimonials'), 'manage_options' , 'sola_t_feedback', 'sola_t_feedback_page');
 }
 
 function sola_t_admin_scripts(){
@@ -381,10 +383,7 @@ function sola_t_admin_scripts(){
     } else {
         if(!wp_script_is('queue', 'ace')){
             wp_enqueue_script('ace');
-        } else {
-            /* It is registered and enqueued. Dont do anything. */
         }
-        /* Register and enqueue it */
     }
     
     if(!wp_script_is('registered', 'ace-theme-twilight')){
@@ -394,10 +393,7 @@ function sola_t_admin_scripts(){
     } else {
         if(!wp_script_is('queue', 'ace-theme-twilight')){
             wp_enqueue_script('ace-theme-twilight');
-        } else {
-            /* It is registered and enqueued. Dont do anything. */
         }
-        /* Register and enqueue it */
     }
     
     if(!wp_script_is('registered', 'ace-mode-css')){
@@ -407,10 +403,7 @@ function sola_t_admin_scripts(){
     } else {
         if(!wp_script_is('queue', 'ace-mode-css')){
             wp_enqueue_script('ace-mode-css');
-        } else {
-            /* It is registered and enqueued. Dont do anything. */
         }
-        /* Register and enqueue it */
     }
     
     if(!wp_script_is('registered', 'jquery-ace')){
@@ -420,10 +413,7 @@ function sola_t_admin_scripts(){
     } else {
         if(!wp_script_is('queue', 'jquery-ace')){
             wp_enqueue_script('jquery-ace');
-        } else {
-            /* It is registered and enqueued. Dont do anything. */
         }
-        /* Register and enqueue it */
     }                    
 }
 
@@ -573,20 +563,20 @@ function sola_t_get_testimonials_rest( WP_REST_Request $data ) {
 
 function sola_t_post_type() {
     $labels = array(
-        'name'               => __('Testimonials', 'sola_t' ),
-        'singular_name'      => __('Testimonial', 'sola_t' ),
-        'menu_name'          => __('Testimonials', 'sola_t' ),
-        'name_admin_bar'     => __('Testimonials', 'sola_t' ),
-        'add_new'            => __('Add New', 'sola_t' ),
-        'add_new_item'       => __('Add New Testimonial', 'sola_t' ),
-        'new_item'           => __('New Testimonial', 'sola_t' ),
-        'edit_item'          => __('Edit Testimonial', 'sola_t' ),
-        'view_item'          => __('View Testimonial', 'sola_t' ),
-        'all_items'          => __('All Testimonials', 'sola_t' ),
-        'search_items'       => __('Search Testimonials', 'sola_t' ),
-        'parent_item_colon'  => __('Parent Testimonials:', 'sola_t' ),
-        'not_found'          => __('No testimonials Found.', 'sola_t' ),
-        'not_found_in_trash' => __('No testimonials Found In Trash.', 'sola_t' )
+        'name'               => __('Testimonials', 'sola-testimonials' ),
+        'singular_name'      => __('Testimonial', 'sola-testimonials' ),
+        'menu_name'          => __('Testimonials', 'sola-testimonials' ),
+        'name_admin_bar'     => __('Testimonials', 'sola-testimonials' ),
+        'add_new'            => __('Add New', 'sola-testimonials' ),
+        'add_new_item'       => __('Add New Testimonial', 'sola-testimonials' ),
+        'new_item'           => __('New Testimonial', 'sola-testimonials' ),
+        'edit_item'          => __('Edit Testimonial', 'sola-testimonials' ),
+        'view_item'          => __('View Testimonial', 'sola-testimonials' ),
+        'all_items'          => __('All Testimonials', 'sola-testimonials' ),
+        'search_items'       => __('Search Testimonials', 'sola-testimonials' ),
+        'parent_item_colon'  => __('Parent Testimonials:', 'sola-testimonials' ),
+        'not_found'          => __('No testimonials Found.', 'sola-testimonials' ),
+        'not_found_in_trash' => __('No testimonials Found In Trash.', 'sola-testimonials' )
     );
 
     $args = array(
@@ -610,11 +600,6 @@ function sola_t_post_type() {
 }
 
 
-//function sola_t_excerpt_length($length) {
-//    $options = get_option('sola_t_options_settings');
-//    $length = intval($options['excerpt_length']);
-//    return $length;
-//}
 function sola_t_read_more($more) {
     $options = get_option('sola_t_options_settings');
     $link = $options['read_more_link'];
@@ -633,7 +618,7 @@ function sola_t_read_more($more) {
 function sola_t_meta_box() {
     add_meta_box( 
         'sola_t_testimonial_meta_data',
-        __('Testimonial Data', 'sola_t'),
+        __('Testimonial Data', 'sola-testimonials'),
         'sola_t_meta_box_contents',
         'testimonials',
         'normal',
@@ -651,39 +636,39 @@ function sola_t_meta_box_contents(){
 
 <table class="form-table">
     <tr>
-        <th><label for="sola_t_user_name"><?php _e('User Name', 'sola_t'); ?></label></th>
+        <th><label for="sola_t_user_name"><?php _e('User Name', 'sola-testimonials'); ?></label></th>
         <td>        
-            <input class="sola_input" type="text" name="sola_t_user_name" value="<?php if($sola_t_user_name = get_post_meta($post_id, 'sola_t_user_name')){ echo $sola_t_user_name[0]; } ?>" placeholder="<?php _e('User Name', 'sola_t'); ?>"/>    
+            <input class="sola_input" type="text" name="sola_t_user_name" value="<?php if($sola_t_user_name = get_post_meta($post_id, 'sola_t_user_name')){ echo $sola_t_user_name[0]; } ?>" placeholder="<?php _e('User Name', 'sola-testimonials'); ?>"/>    
         </td>
     </tr>
     <tr>
-        <th><label for="sola_t_image_url"><?php _e('User Email Address', 'sola_t'); ?></label></th>
+        <th><label for="sola_t_image_url"><?php _e('User Email Address', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_user_email" value="<?php if($sola_t_user_email = get_post_meta($post_id, 'sola_t_user_email')){ echo $sola_t_user_email[0]; } ?>" placeholder="<?php _e('User Email Address', 'sola_t'); ?>"/>            
+            <input class="sola_input" type="text" name="sola_t_user_email" value="<?php if($sola_t_user_email = get_post_meta($post_id, 'sola_t_user_email')){ echo $sola_t_user_email[0]; } ?>" placeholder="<?php _e('User Email Address', 'sola-testimonials'); ?>"/>            
             <div class="description">
-                <p><?php _e('The users email address will be used to show their gravatar image. To use a custom image, leave this field blank and enter an Image URL below. ', 'sola_t'); ?>
+                <p><?php _e('The users email address will be used to show their gravatar image. To use a custom image, leave this field blank and enter an Image URL below. ', 'sola-testimonials'); ?>
             </div>
         </td>        
     </tr>
     <tr>
-        <th><label for="sola_t_image_url"><?php _e('Image URL', 'sola_t'); ?></label></th>
+        <th><label for="sola_t_image_url"><?php _e('Image URL', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_image_url" id="sola_t_user_upload_image" value="<?php if($sola_t_image_url = get_post_meta($post_id, 'sola_t_image_url')){ echo $sola_t_image_url[0]; } ?>" placeholder="<?php _e('Image URL', 'sola_t'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_image_url" id="sola_t_user_upload_image" value="<?php if($sola_t_image_url = get_post_meta($post_id, 'sola_t_image_url')){ echo $sola_t_image_url[0]; } ?>" placeholder="<?php _e('Image URL', 'sola-testimonials'); ?>"/>
             <div class="description">
-                <p><?php _e('Leave this field blank to use the gravatar image of the author. The User Image (Right) will override this option.', 'sola_t'); ?>
+                <p><?php _e('Leave this field blank to use the gravatar image of the author. The User Image (Right) will override this option.', 'sola-testimonials'); ?>
             </div>
         </td>
     </tr>
     <tr>
-        <th><label for="sola_t_website_name"><?php _e('Website Name', 'sola_t'); ?></label>
+        <th><label for="sola_t_website_name"><?php _e('Website Name', 'sola-testimonials'); ?></label>
         <td>
-            <input class="sola_input" type="text" name="sola_t_website_name" value="<?php if($sola_t_website_name = get_post_meta($post_id, 'sola_t_website_name')){ echo $sola_t_website_name[0]; } ?>" placeholder="<?php _e('User Website Name', 'sola_t'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_website_name" value="<?php if($sola_t_website_name = get_post_meta($post_id, 'sola_t_website_name')){ echo $sola_t_website_name[0]; } ?>" placeholder="<?php _e('User Website Name', 'sola-testimonials'); ?>"/>
         </td>        
     </tr>
     <tr>
-        <th><label for="sola_t_website_address"><?php _e('Website Address', 'sola_t'); ?></label></th>
+        <th><label for="sola_t_website_address"><?php _e('Website Address', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_website_address" value="<?php if($sola_t_website_address = get_post_meta($post_id, 'sola_t_website_address')){ echo $sola_t_website_address[0]; } else { echo 'http://'; } ?>" placeholder="<?php _e('User Web Address', 'sola_t'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_website_address" value="<?php if($sola_t_website_address = get_post_meta($post_id, 'sola_t_website_address')){ echo $sola_t_website_address[0]; } else { echo 'http://'; } ?>" placeholder="<?php _e('User Web Address', 'sola-testimonials'); ?>"/>
         </td>
     </tr>
     <?php if(function_exists('sola_t_pro_activate')){ ?>
@@ -692,16 +677,16 @@ function sola_t_meta_box_contents(){
         if($sola_t_pro_version <= "1.2"){
         ?>
          <tr>
-            <th><label for="sola_t_rating"><?php _e('Rating', 'sola_t'); ?></label></th>
+            <th><label for="sola_t_rating"><?php _e('Rating', 'sola-testimonials'); ?></label></th>
             <td>
-                <p><?php _e('Please update to the latest version of Sola Testimonials Pro to take advantage of star ratings', 'sola_t'); ?>
+                <p><?php _e('Please update to the latest version of Super Testimonials Pro to take advantage of star ratings', 'sola-testimonials'); ?>
             </td>
         </tr>
         <?php
         } else {
         ?>
         <tr>
-            <th><label for="sola_t_rating"><?php _e('Rating', 'sola_t'); ?></label></th>
+            <th><label for="sola_t_rating"><?php _e('Rating', 'sola-testimonials'); ?></label></th>
             <td>
                 
                 <?php 
@@ -728,17 +713,17 @@ function sola_t_meta_box_contents(){
         </tr>
     <?php } } else { ?>
         <tr>
-            <th><label for="sola_t_rating"><?php _e('Rating', 'sola_t'); ?></label></th>
+            <th><label for="sola_t_rating"><?php _e('Rating', 'sola-testimonials'); ?></label></th>
             <td>
-                <?php $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_add_rating\" target=\"_BLANK\">".__('Premium Version', 'sola_t')."</a>"; ?>
-                <p><?php _e("Star Ratings are only available in the $pro_link", 'sola_t'); ?>
+                <?php $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_add_rating\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>"; ?>
+                <p><?php _e("Star Ratings are only available in the $pro_link", 'sola-testimonials'); ?>
             </td>
         </tr>
     <?php } ?>
     <tr>
-        <th><label><?php _e('Shortcode', 'sola_t'); ?></label></th>
+        <th><label><?php _e('Shortcode', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" readonly name="sola_t_single_shortcode" value="<?php echo '[sola_testimonial id='.$post->ID.']'; ?>" />
+            <input class="sola_input" type="text" readonly name="sola_t_single_shortcode" value="<?php echo '[super_testimonial id='.$post->ID.']'; ?>" />
         </td>
     </tr>
     
@@ -792,7 +777,7 @@ function sola_t_save_testimonial_meta($post_id) {
 function sola_t_side_meta_box() {
     add_meta_box( 
         'sola_t_testimonial_meta_side_data',
-        __('Testimonial Status', 'sola_t'),
+        __('Testimonial Status', 'sola-testimonials'),
         'sola_t_side_meta_box_contents',
         'testimonials',
         'side',
@@ -810,12 +795,12 @@ function sola_t_side_meta_box_contents(){
         <table class=\"form-table\">
             <tr>
                 <th>
-                ".__('Status', 'sola_t')."
+                ".__('Status', 'sola-testimonials')."
                 </th>
                 <td>
                     <select name=\"sola_t_submit_status\" >
-                        <option value=\"0\" $selected0>".__('Pending Approval', 'sola_t')."</option>
-                        <option value=\"1\" $selected1>".__('Approved', 'sola_t')."</option>
+                        <option value=\"0\" $selected0>".__('Pending Approval', 'sola-testimonials')."</option>
+                        <option value=\"1\" $selected1>".__('Approved', 'sola-testimonials')."</option>
                     </select>
                 </td>
             </tr>
@@ -828,12 +813,12 @@ function sola_t_side_meta_box_contents(){
 function sola_t_columns($columns) {
     
     $new_columns = array(
-        'sola_t_user_name' => __('User Name', 'sola_t'),
-        'sola_t_website_name' => __('Website Name', 'sola_t'),
-        'sola_t_website_address' => __('Website Address', 'sola_t'),
-        'sola_t_status' => __('Status', 'sola_t'),
-        'sola_t_rating' => __('Rating', 'sola_t'),
-        'sola_t_single_shortcode' => __('Shortcode', 'sola_t')
+        'sola_t_user_name' => __('User Name', 'sola-testimonials'),
+        'sola_t_website_name' => __('Website Name', 'sola-testimonials'),
+        'sola_t_website_address' => __('Website Address', 'sola-testimonials'),
+        'sola_t_status' => __('Status', 'sola-testimonials'),
+        'sola_t_rating' => __('Rating', 'sola-testimonials'),
+        'sola_t_single_shortcode' => __('Shortcode', 'sola-testimonials')
     );
     return array_merge($columns, $new_columns);
 }
@@ -855,16 +840,16 @@ function sola_t_populate_columns($column) {
     } else if ('sola_t_status' == $column){
         $sola_t_status = get_post_meta( get_the_ID(), '_sola_t_status', true );   
         if($sola_t_status == 1){
-            $status = __('Approved', 'sola_t');
+            $status = __('Approved', 'sola-testimonials');
         } else {
-            $status = __('Pending Approval', 'sola_t');
+            $status = __('Pending Approval', 'sola-testimonials');
         }
         echo $status;
     } else if ('sola_t_rating' == $column){
         $sola_t_status = get_post_meta( get_the_ID(), 'sola_t_rating', true );
         echo $sola_t_status;
     }else if ( 'sola_t_single_shortcode' == $column ) {
-        echo '[sola_testimonial id='.$post->ID.']';
+        echo '[super_testimonial id='.$post->ID.']';
     }
     
 }
@@ -877,7 +862,7 @@ function sola_t_admin_head(){
                 "Email: ".$_POST['sola_t_feedback_email']."\n\r".
                 "Website: ".$_POST['sola_t_feedback_website']."\n\r".
                 "Feedback:".$_POST['sola_t_feedback_feedback']."\n\r
-                Sent from Sola Testimonials", $headers_mail)){
+                Sent from Super Testimonials", $headers_mail)){
             echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola_t")."</p></div>";
         } else {
             if (function_exists('curl_version')) {
@@ -906,7 +891,7 @@ function sola_t_user_head(){
     $style_options = get_option('sola_t_style_settings');
     if(isset($style_options['custom_css']) && $style_options['custom_css'] != ""){
         $custom_css = "
-            <!-- Sola Testimonials Custom CSS -->
+            <!-- Super Testimonials Custom CSS -->
             <style type=\"text/css\">".
                 $style_options['custom_css']
             ."</style>
@@ -928,32 +913,33 @@ if (isset($_POST['sola_t_save_options'])){
     
         extract($_POST);
 
-        $sola_t_saved_forms = Array();
+        $sola_t_saved_forms = array();
 
         if(isset($sola_t_show_title)){ $sola_t_saved_forms['show_title'] = $sola_t_show_title; } else { $sola_t_saved_forms['show_title'] = ''; }
         if(isset($sola_t_show_excerpt)){ $sola_t_saved_forms['show_excerpt'] = $sola_t_show_excerpt; } else { $sola_t_saved_forms['show_excerpt'] = ''; }
         if(isset($sola_t_image_size)){ $sola_t_saved_forms['image_size'] = $sola_t_image_size; } else { $sola_t_saved_forms['image_size'] = '120'; }
         if(isset($sola_t_except_length) && $sola_t_except_length != ""){ $sola_t_saved_forms['excerpt_length'] = $sola_t_except_length; } else { $sola_t_saved_forms['excerpt_length'] = 20; }
-        if(isset($sola_t_read_more_link) && $sola_t_read_more_link != ""){ $sola_t_saved_forms['read_more_link'] = $sola_t_read_more_link; } else { $sola_t_saved_forms['read_more_link'] = __('Read More', 'sola_t'); }
+        if(isset($sola_t_read_more_link) && $sola_t_read_more_link != ""){ $sola_t_saved_forms['read_more_link'] = $sola_t_read_more_link; } else { $sola_t_saved_forms['read_more_link'] = __('Read More', 'sola-testimonials'); }
         if(isset($sola_t_show_user_name)){ $sola_t_saved_forms['show_user_name'] = $sola_t_show_user_name; } else { $sola_t_saved_forms['show_user_name'] = ''; }
         if(isset($sola_t_show_web)){ $sola_t_saved_forms['show_user_web'] = $sola_t_show_web; } else { $sola_t_saved_forms['show_user_web'] = ''; }
         if(isset($sola_t_show_image)){ $sola_t_saved_forms['show_image'] = $sola_t_show_image; } else { $sola_t_saved_forms['show_image'] = ''; }
         if(isset($sola_t_allow_html)){ $sola_t_saved_forms['sola_t_allow_html'] = $sola_t_allow_html; } else { $sola_t_saved_forms['sola_t_allow_html'] = ''; }        
         if(isset($sola_t_content_type)){ $sola_t_saved_forms['sola_t_content_type'] = $sola_t_content_type; } else { $sola_t_saved_forms['sola_t_content_type'] = 0; }
         if(isset($sola_st_strip_links)){ $sola_t_saved_forms['sola_st_strip_links'] = $sola_st_strip_links; } else { $sola_t_saved_forms['sola_st_strip_links'] = ''; }
+        if(isset($sola_t_allow_nofollow)){ $sola_t_saved_forms['sola_t_allow_nofollow'] = $sola_t_allow_nofollow; } else { $sola_t_saved_forms['sola_t_allow_nofollow'] = ''; }  
         
         $update_form = update_option('sola_t_options_settings', $sola_t_saved_forms);
 
         if($update_form){
             echo "
                 <div class=\"updated\">
-                    <p>".__('Update Successful', 'sola_t')."</p>
+                    <p>".__('Update Successful', 'sola-testimonials')."</p>
                 </div>
             ";
         } else {
             echo "
                 <div class=\"error\">
-                    <p>".__('No changes were made', 'sola_t')."</p>
+                    <p>".__('No changes were made', 'sola-testimonials')."</p>
                 </div>
             ";
         }
@@ -975,13 +961,13 @@ if (isset($_POST['sola_t_save_options'])){
     if($update_form){
         echo "
             <div class=\"updated\">
-                <p>".__('Update Successful', 'sola_t')."</p>
+                <p>".__('Update Successful', 'sola-testimonials')."</p>
             </div>
         ";
     } else {
         echo "
             <div class=\"error\">
-                <p>".__('No changes were made', 'sola_t')."</p>
+                <p>".__('No changes were made', 'sola-testimonials')."</p>
             </div>
         ";
     }
@@ -1003,7 +989,7 @@ function sola_t_loop_control( $query ) {
 
 function sola_t_featured_user_image() {
     remove_meta_box('postimagediv', 'testimonials', 'side');
-    add_meta_box('postimagediv', __('User Image', 'sola_t'), 'post_thumbnail_meta_box', 'testimonials', 'side');
+    add_meta_box('postimagediv', __('User Image', 'sola-testimonials'), 'post_thumbnail_meta_box', 'testimonials', 'side');
 }
 
 function sola_t_custom_excerpt($text) {
@@ -1022,8 +1008,6 @@ function sola_t_custom_excerpt($text) {
 
         $text = apply_filters('the_content', $text);
         
-        $text = str_replace(']]>', ']]>', $text);
-        
         if(!$sola_t_allow_html){
             $text = strip_tags($text);
         }
@@ -1032,14 +1016,18 @@ function sola_t_custom_excerpt($text) {
  
         $excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
         
-        $words = preg_split('/(<a.*?a>)|\n|\r|\t|\s/', $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE );
+        $excerpt_regular_expression = '/(<a.*?a>)|\n|\r|\t|\s/';
+        $words = preg_split( $excerpt_regular_expression, $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE );
         
-        if ( count($words) > $excerpt_length ) {
-                array_pop($words);
-                $text = implode(' ', $words);
-                $text = $text . $excerpt_more;
-        } else {
-                $text = implode(' ', $words);
+        if( count($words) > $excerpt_length ){          //Check if longer than it should be
+            while( count($words) > $excerpt_length ){   //While longer than than it should be
+                array_pop($words);                      //Pop one off the end
+            }
+        
+            $text = implode(' ', $words);               //Create excerpt with spaces
+            $text .= $excerpt_more;                     //Add excerpt_more value
+        } else{
+            $text = implode(' ', $words);               //Create excerpt with spaces
         }
     }
     return apply_filters('new_wp_trim_excerpt', $text, $raw_excerpt);
@@ -1050,6 +1038,9 @@ function sola_t_is_secure() {
 }
 
 add_shortcode( 'sola_testimonials_count', 'sola_t_return_testimonial_count' );
+
+// New Super Shortcodes
+add_shortcode( 'super_testimonials_count', 'sola_t_return_testimonial_count' );
 
 function sola_t_return_testimonial_count( $atts ){    
 
