@@ -2,7 +2,7 @@
     <td style="text-align: left;">        
         <?php 
             $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_upgrade_tab\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
-            echo "<h3>".__("Why should I upgrade to the $pro_link?", "sola_t")."</h3>";
+            echo "<h3>".__("Why should I upgrade to the $pro_link?", "sola-testimonials")."</h3>";
             echo "
                 <ul style='text-align: left; padding: 20px 30px;'>
                     <li style='padding: 5px;'>".__('Priority Support', 'sola-testimonials')."</li>
@@ -14,7 +14,7 @@
                 </ul>
                 ";
             $pro_price = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_purchase_price\" target=\"_BLANK\">".__('$19.99', 'sola-testimonials')."</a>";
-            echo "<h3>".__("Get these amazing features and more, for only $pro_price!", "sola_t")."</h3>";
+            echo "<h3>".__("Get these amazing features and more, for only $pro_price!", "sola-testimonials")."</h3>";
         ?>
     </td>
 </tr>

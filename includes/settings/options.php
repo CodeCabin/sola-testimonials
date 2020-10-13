@@ -94,7 +94,7 @@
             <th><label for=""><?php _e('Show Rating', 'sola-testimonials'); ?></label></th>
             <td>        
                 <input type="checkbox" disabled="disabled" readonly="readonly"/>
-                <p class="description"><?php _e("Ratings are only available in the $pro_link", "sola_t"); ?></p>
+                <p class="description"><?php _e("Ratings are only available in the $pro_link", "sola-testimonials"); ?></p>
             </td>
         </tr>
     <?php } ?>
@@ -114,7 +114,7 @@
             <th><label for=""><?php _e('Export Testimonials', 'sola-testimonials'); ?></label></th>
             <td>        
                 <a href='#' class='button button-primary' disabled='disbaled' title='<?php _e('Premium Version Only', 'sola-testimonials'); ?>'><?php _e( 'Export All', 'sola-testimonials' ); ?></a>
-                <p class="description"><?php _e("Exporting markers is only available in the $pro_link", "sola_t"); ?></p>
+                <p class="description"><?php _e("Exporting markers is only available in the $pro_link", "sola-testimonials"); ?></p>
             </td>
         </tr>
     <?php } ?>

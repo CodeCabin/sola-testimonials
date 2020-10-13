@@ -254,12 +254,12 @@ function sola_t_all_testimonials($atts){
             if(isset($sola_t_custom_image) && $sola_t_custom_image != "" && !empty($sola_t_custom_image)){
                 $the_image_url = $sola_t_custom_image;
 
-                $the_image = "<div class=\"sola_t_image $class\"  style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$sola_t_custom_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" /></div>";
+                $the_image = "<div class=\"sola_t_image $class\"  style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$sola_t_custom_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
 
             } else if ($sola_t_featured_image) {
                 $the_image_url = $sola_t_featured_image;
                 
-                $the_image = "<div class=\"sola_t_image $class\"  style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$sola_t_featured_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" /></div>";
+                $the_image = "<div class=\"sola_t_image $class\"  style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$sola_t_featured_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
                 
             } else {
 
@@ -274,7 +274,7 @@ function sola_t_all_testimonials($atts){
                     
                     if (isset($display_size)) { $image_size = $display_size; } /* retina size change */
 
-                    $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\"/></div>";
+                    $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
 
                 } else {
 
@@ -285,7 +285,7 @@ function sola_t_all_testimonials($atts){
 
                     if (isset($display_size)) { $image_size = $display_size; } /* retina size change */
 
-                    $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\"/></div>";
+                    $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
                 }
             }
 
@@ -659,11 +659,11 @@ function sola_t_ajax_callback(){
 
                     if(isset($sola_t_custom_image) && $sola_t_custom_image != "" && !empty($sola_t_custom_image)){
 
-                        $the_image = "<div class=\"sola_t_image $class\"  style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$sola_t_custom_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" /></div>";
+                        $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$sola_t_custom_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
 
                     } else if ($sola_t_featured_image) {
                         
-                        $the_image = "<div class=\"sola_t_image $class\"  style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$sola_t_featured_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" /></div>";
+                        $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$sola_t_featured_image\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
                         
                     } else {
 
@@ -675,7 +675,7 @@ function sola_t_ajax_callback(){
 
                             $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=$image_size&d=mm";
 
-                            $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\"/></div>";
+                            $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
 
                         } else {
 
@@ -683,7 +683,7 @@ function sola_t_ajax_callback(){
 
                             $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=$image_size&d=mm";
 
-                            $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\"/></div>";
+                            $the_image = "<div class=\"sola_t_image $class\" style=\"width:".$image_size."px; height:".$image_size."px;\"><img class=\" $class\" src=\"$grav_url\" title=\"".get_the_title()."\" alt=\"".get_the_title()."\" style=\"width:".$image_size."px; height:".$image_size."px;\"/></div>";
                         }
                     }
 
