@@ -470,10 +470,7 @@ function sola_t_front_end_scripts(){
     } else {
         if(!wp_script_is('queue', 'jquery-matchHeight')){
             wp_enqueue_script('jquery-matchHeight');
-        } else {
-            /* It is registered and enqueued. Dont do anything. */
         }
-        /* Register and enqueue it */
     }    
     
 }
@@ -609,7 +606,7 @@ function sola_t_read_more($more) {
         if(isset($link) && $link != ""){
             $more = "... <a class=\"read-more\" href=\"".get_permalink(get_the_ID())."\">$link</a>";
         } else {
-            $more =  "... <a class=\"read-more\" href=\"".get_permalink(get_the_ID())."\">".__("Read More", "sola_t")."</a>";
+            $more =  "... <a class=\"read-more\" href=\"".get_permalink(get_the_ID())."\">".__("Read More", "sola-testimonials")."</a>";
         }
     }
     return $more;
@@ -863,7 +860,7 @@ function sola_t_admin_head(){
                 "Website: ".$_POST['sola_t_feedback_website']."\n\r".
                 "Feedback:".$_POST['sola_t_feedback_feedback']."\n\r
                 Sent from Super Testimonials", $headers_mail)){
-            echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola_t")."</p></div>";
+            echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola-testimonials")."</p></div>";
         } else {
             if (function_exists('curl_version')) {
                 $request_url = "http://www.solaplugins.com/apif-testimonials/rec_feedback.php";
@@ -875,11 +872,11 @@ function sola_t_admin_head(){
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 $output = curl_exec($ch);
                 curl_close($ch);
-                echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola_t")."</p></div>";
+                echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola-testimonials")."</p></div>";
             } 
             else {
                 echo "<div id=\"message\" class=\"error\">";
-                echo "<p>".__("There was a problem sending your feedback. Please log your feedback on ","sola_t")."<a href='http://solaplugins.com/support-desk' target='_BLANK'>http://solaplugins.com/support-desk</a></p>";
+                echo "<p>".__("There was a problem sending your feedback. Please log your feedback on ","sola-testimonials")."<a href='http://solaplugins.com/support-desk' target='_BLANK'>http://solaplugins.com/support-desk</a></p>";
                 echo "</div>";
             }
         }
@@ -947,13 +944,13 @@ if (isset($_POST['sola_t_save_options'])){
 } else if(isset($_POST['sola_t_save_style_settings'])){
         
     extract($_POST);
-
+    
     $sola_t_style_settings = array();
 
     if(isset($sola_t_custom_css) && $sola_t_custom_css != ""){ $sola_t_style_settings['custom_css'] =  $sola_t_custom_css; } else { $sola_t_style_settings['custom_css'] = ""; }
     if(isset($sola_t_layout) && $sola_t_layout != ""){ $sola_t_style_settings['chosen_layout'] =  $sola_t_layout; } else { $sola_t_style_settings['chosen_layout'] = ""; }
     if(isset($sola_t_image_layout) && $sola_t_image_layout != ""){ $sola_t_style_settings['image_layout'] =  $sola_t_image_layout; } else { $sola_t_style_settings['image_layout'] = ""; }
-    if(isset($sola_t_image_layout) && $sola_t_image_layout != ""){ $sola_t_style_settings['image_layout'] =  $sola_t_image_layout; } else { $sola_t_style_settings['image_layout'] = ""; }
+
     if(isset($sola_t_theme) && $sola_t_theme != ""){ $sola_t_style_settings['chosen_theme'] =  $sola_t_theme; } else { $sola_t_style_settings['chosen_theme'] = ""; }
     
     $update_form = update_option('sola_t_style_settings', $sola_t_style_settings);

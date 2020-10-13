@@ -151,15 +151,13 @@ jQuery(document).ready(function() {
         var orig_tid = jQuery(this).attr('tid');
         jQuery( ".sola_t_theme_select" ).each(function() {
             var tid = jQuery(this).attr('tid');
-            jQuery("#sola_t_rb_theme_"+tid).attr('checked', false);
+            jQuery("#sola_t_rb_theme_"+tid).prop('checked', false);
             jQuery("#sola_t_theme_"+tid).removeClass("layout_activate");
         });
-        jQuery("#sola_t_rb_theme_"+orig_tid).attr('checked', true);
+        jQuery("#sola_t_rb_theme_"+orig_tid).prop('checked', true);
         jQuery("#sola_t_theme_"+orig_tid).addClass("layout_activate");
-        
     });
     
- 
     jQuery("#sola_t_image_1").click(function() {
         jQuery("#sola_t_rb_image_1").attr('checked', true);
         jQuery("#sola_t_rb_image_2").attr('checked', false);

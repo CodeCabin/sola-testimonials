@@ -7,7 +7,7 @@ if(function_exists('sola_t_register_pro')){
     <th style="text-align: center;" colspan="3">        
         <?php 
             $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_submission_form_settings\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
-            echo "<h3>".__("Allow users to submit testimonials using a fully comprehensive submission form on your website with the $pro_link.", "sola_t")."</h3>";
+            echo "<h3>".__("Allow users to submit testimonials using a fully comprehensive submission form on your website with the $pro_link.", "sola-testimonials")."</h3>";
         ?>
     </th>
 </tr>
