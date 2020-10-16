@@ -476,11 +476,18 @@ function sola_t_front_end_scripts(){
 }
 
 function sola_t_settings_page(){
+    /*
     if (isset($_GET['page']) && $_GET['page'] == "sola_t_settings" && isset($_GET['action']) && $_GET['action'] == "welcome_page") {
         include('includes/welcome-page.php');
     } else {
+        sola_t_save_options();
         include 'includes/settings.php';
     }
+    */
+
+    sola_t_save_options();
+    include 'includes/settings.php';
+    
 }
 
 function sola_t_feedback_page(){
@@ -853,12 +860,17 @@ function sola_t_populate_columns($column) {
 
 function sola_t_admin_head(){
     if (isset($_POST['sola_t_send_feedback'])) {
+        $nonceKey = 'sola_feedback_nonce';
+        if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
+            die();
+        }
+
         $headers_mail = 'From: '.$_POST['sola_t_feedback_email'].' < '.$_POST['sola_t_feedback_email'].' >' ."\r\n";
         if(wp_mail("support@solaplugins.com", "Plugin feedback", 
-                "Name: ".$_POST['sola_t_feedback_name']."\n\r".
-                "Email: ".$_POST['sola_t_feedback_email']."\n\r".
-                "Website: ".$_POST['sola_t_feedback_website']."\n\r".
-                "Feedback:".$_POST['sola_t_feedback_feedback']."\n\r
+                "Name: ". sanitize_text_field($_POST['sola_t_feedback_name']) ."\n\r".
+                "Email: ". sanitize_text_field($_POST['sola_t_feedback_email']) ."\n\r".
+                "Website: ". sanitize_text_field($_POST['sola_t_feedback_website']) ."\n\r".
+                "Feedback:". sanitize_textarea_field($_POST['sola_t_feedback_feedback'])."\n\r
                 Sent from Super Testimonials", $headers_mail)){
             echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola-testimonials")."</p></div>";
         } else {
@@ -899,34 +911,72 @@ function sola_t_user_head(){
 }
 
 /* Save Options */
-    
-if (isset($_POST['sola_t_save_options'])){
-    
-    if(function_exists('sola_t_pro_activate')){
-        if(function_exists('sola_t_pro_save_options')){
-            sola_t_pro_save_options();
-        }
-    } else {
-    
-        extract($_POST);
-
-        $sola_t_saved_forms = array();
-
-        if(isset($sola_t_show_title)){ $sola_t_saved_forms['show_title'] = $sola_t_show_title; } else { $sola_t_saved_forms['show_title'] = ''; }
-        if(isset($sola_t_show_excerpt)){ $sola_t_saved_forms['show_excerpt'] = $sola_t_show_excerpt; } else { $sola_t_saved_forms['show_excerpt'] = ''; }
-        if(isset($sola_t_image_size)){ $sola_t_saved_forms['image_size'] = $sola_t_image_size; } else { $sola_t_saved_forms['image_size'] = '120'; }
-        if(isset($sola_t_except_length) && $sola_t_except_length != ""){ $sola_t_saved_forms['excerpt_length'] = $sola_t_except_length; } else { $sola_t_saved_forms['excerpt_length'] = 20; }
-        if(isset($sola_t_read_more_link) && $sola_t_read_more_link != ""){ $sola_t_saved_forms['read_more_link'] = $sola_t_read_more_link; } else { $sola_t_saved_forms['read_more_link'] = __('Read More', 'sola-testimonials'); }
-        if(isset($sola_t_show_user_name)){ $sola_t_saved_forms['show_user_name'] = $sola_t_show_user_name; } else { $sola_t_saved_forms['show_user_name'] = ''; }
-        if(isset($sola_t_show_web)){ $sola_t_saved_forms['show_user_web'] = $sola_t_show_web; } else { $sola_t_saved_forms['show_user_web'] = ''; }
-        if(isset($sola_t_show_image)){ $sola_t_saved_forms['show_image'] = $sola_t_show_image; } else { $sola_t_saved_forms['show_image'] = ''; }
-        if(isset($sola_t_allow_html)){ $sola_t_saved_forms['sola_t_allow_html'] = $sola_t_allow_html; } else { $sola_t_saved_forms['sola_t_allow_html'] = ''; }        
-        if(isset($sola_t_content_type)){ $sola_t_saved_forms['sola_t_content_type'] = $sola_t_content_type; } else { $sola_t_saved_forms['sola_t_content_type'] = 0; }
-        if(isset($sola_st_strip_links)){ $sola_t_saved_forms['sola_st_strip_links'] = $sola_st_strip_links; } else { $sola_t_saved_forms['sola_st_strip_links'] = ''; }
-        if(isset($sola_t_allow_nofollow)){ $sola_t_saved_forms['sola_t_allow_nofollow'] = $sola_t_allow_nofollow; } else { $sola_t_saved_forms['sola_t_allow_nofollow'] = ''; }  
+function sola_t_save_options(){   
+    if (isset($_POST['sola_t_save_options'])){
         
-        $update_form = update_option('sola_t_options_settings', $sola_t_saved_forms);
+        $nonceKey = 'sola_settings_options_nonce';
+        if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
+            die();
+        }
 
+        if(function_exists('sola_t_pro_activate')){
+            if(function_exists('sola_t_pro_save_options')){
+                sola_t_pro_save_options();
+            }
+        } else {
+        
+            extract($_POST);
+
+            $sola_t_saved_forms = array();
+
+            if(isset($sola_t_show_title)){ $sola_t_saved_forms['show_title'] = sanitize_text_field($sola_t_show_title); } else { $sola_t_saved_forms['show_title'] = ''; }
+            if(isset($sola_t_show_excerpt)){ $sola_t_saved_forms['show_excerpt'] = sanitize_text_field($sola_t_show_excerpt); } else { $sola_t_saved_forms['show_excerpt'] = ''; }
+            if(isset($sola_t_image_size)){ $sola_t_saved_forms['image_size'] = sanitize_text_field($sola_t_image_size); } else { $sola_t_saved_forms['image_size'] = '120'; }
+            if(isset($sola_t_except_length) && $sola_t_except_length != ""){ $sola_t_saved_forms['excerpt_length'] = sanitize_text_field($sola_t_except_length); } else { $sola_t_saved_forms['excerpt_length'] = 20; }
+            if(isset($sola_t_read_more_link) && $sola_t_read_more_link != ""){ $sola_t_saved_forms['read_more_link'] = sanitize_text_field($sola_t_read_more_link); } else { $sola_t_saved_forms['read_more_link'] = __('Read More', 'sola-testimonials'); }
+            if(isset($sola_t_show_user_name)){ $sola_t_saved_forms['show_user_name'] = sanitize_text_field($sola_t_show_user_name); } else { $sola_t_saved_forms['show_user_name'] = ''; }
+            if(isset($sola_t_show_web)){ $sola_t_saved_forms['show_user_web'] = sanitize_text_field($sola_t_show_web); } else { $sola_t_saved_forms['show_user_web'] = ''; }
+            if(isset($sola_t_show_image)){ $sola_t_saved_forms['show_image'] = sanitize_text_field($sola_t_show_image); } else { $sola_t_saved_forms['show_image'] = ''; }
+            if(isset($sola_t_allow_html)){ $sola_t_saved_forms['sola_t_allow_html'] = sanitize_text_field($sola_t_allow_html); } else { $sola_t_saved_forms['sola_t_allow_html'] = ''; }        
+            if(isset($sola_t_content_type)){ $sola_t_saved_forms['sola_t_content_type'] = sanitize_text_field($sola_t_content_type); } else { $sola_t_saved_forms['sola_t_content_type'] = 0; }
+            if(isset($sola_st_strip_links)){ $sola_t_saved_forms['sola_st_strip_links'] = sanitize_text_field($sola_st_strip_links); } else { $sola_t_saved_forms['sola_st_strip_links'] = ''; }
+            if(isset($sola_t_allow_nofollow)){ $sola_t_saved_forms['sola_t_allow_nofollow'] = sanitize_text_field($sola_t_allow_nofollow); } else { $sola_t_saved_forms['sola_t_allow_nofollow'] = ''; }  
+            
+            $update_form = update_option('sola_t_options_settings', $sola_t_saved_forms);
+
+            if($update_form){
+                echo "
+                    <div class=\"updated\">
+                        <p>".__('Update Successful', 'sola-testimonials')."</p>
+                    </div>
+                ";
+            } else {
+                echo "
+                    <div class=\"error\">
+                        <p>".__('No changes were made', 'sola-testimonials')."</p>
+                    </div>
+                ";
+            }
+        }
+    } else if(isset($_POST['sola_t_save_style_settings'])){
+
+        $nonceKey = 'sola_settings_styles_nonce';
+        if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
+            die();
+        }    
+
+        extract($_POST);
+        
+        $sola_t_style_settings = array();
+
+        if(isset($sola_t_custom_css) && $sola_t_custom_css != ""){ $sola_t_style_settings['custom_css'] =  sanitize_textarea_field($sola_t_custom_css); } else { $sola_t_style_settings['custom_css'] = ""; }
+        if(isset($sola_t_layout) && $sola_t_layout != ""){ $sola_t_style_settings['chosen_layout'] =  sanitize_text_field($sola_t_layout); } else { $sola_t_style_settings['chosen_layout'] = ""; }
+        if(isset($sola_t_image_layout) && $sola_t_image_layout != ""){ $sola_t_style_settings['image_layout'] =  sanitize_text_field($sola_t_image_layout); } else { $sola_t_style_settings['image_layout'] = ""; }
+
+        if(isset($sola_t_theme) && $sola_t_theme != ""){ $sola_t_style_settings['chosen_theme'] =  sanitize_text_field($sola_t_theme); } else { $sola_t_style_settings['chosen_theme'] = ""; }
+        
+        $update_form = update_option('sola_t_style_settings', $sola_t_style_settings);
+        
         if($update_form){
             echo "
                 <div class=\"updated\">
@@ -940,33 +990,6 @@ if (isset($_POST['sola_t_save_options'])){
                 </div>
             ";
         }
-    }
-} else if(isset($_POST['sola_t_save_style_settings'])){
-        
-    extract($_POST);
-    
-    $sola_t_style_settings = array();
-
-    if(isset($sola_t_custom_css) && $sola_t_custom_css != ""){ $sola_t_style_settings['custom_css'] =  $sola_t_custom_css; } else { $sola_t_style_settings['custom_css'] = ""; }
-    if(isset($sola_t_layout) && $sola_t_layout != ""){ $sola_t_style_settings['chosen_layout'] =  $sola_t_layout; } else { $sola_t_style_settings['chosen_layout'] = ""; }
-    if(isset($sola_t_image_layout) && $sola_t_image_layout != ""){ $sola_t_style_settings['image_layout'] =  $sola_t_image_layout; } else { $sola_t_style_settings['image_layout'] = ""; }
-
-    if(isset($sola_t_theme) && $sola_t_theme != ""){ $sola_t_style_settings['chosen_theme'] =  $sola_t_theme; } else { $sola_t_style_settings['chosen_theme'] = ""; }
-    
-    $update_form = update_option('sola_t_style_settings', $sola_t_style_settings);
-    
-    if($update_form){
-        echo "
-            <div class=\"updated\">
-                <p>".__('Update Successful', 'sola-testimonials')."</p>
-            </div>
-        ";
-    } else {
-        echo "
-            <div class=\"error\">
-                <p>".__('No changes were made', 'sola-testimonials')."</p>
-            </div>
-        ";
     }
 }
 

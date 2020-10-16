@@ -9,6 +9,9 @@
 
     <h2 style="font-size: 25px;"><?php _e("How did you find us?", "sola-testimonials"); ?></h2>
     <form method="post" name="sola_find_us_form" action="edit.php?post_type=testimonials&page=sola_t_settings&override=1" style="font-size: 16px;">
+        <?php 
+            wp_nonce_field( 'sola_welcome_page_nonce', 'sola_welcome_page_nonce' );
+        ?>
         <div  style="text-align: left; width:275px;">
             <input type="radio" name="sola_find_us" id="wordpress" value='repository'>
             <label for="wordpress">
