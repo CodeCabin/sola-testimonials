@@ -8,6 +8,9 @@ get_currentuserinfo();
     <h3><?php _e("We'd love to hear your comments and/or suggestions","sola-testimonials"); ?></h3>
     <div class='sola_t_feedback_wrap'>
         <form name="sola_t_feedback" action="" method="POST">
+            <?php 
+                wp_nonce_field( 'sola_feedback_nonce', 'sola_feedback_nonce' );
+            ?>
             <table width='100%'>
                 <tr>
                     <td width="250px" >

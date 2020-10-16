@@ -1,5 +1,8 @@
 <?php $style_settings = get_option('sola_t_style_settings'); ?>
 <form method="post">
+    <?php 
+        wp_nonce_field( 'sola_settings_styles_nonce', 'sola_settings_styles_nonce' );
+    ?>
     <tr>
         <th><label for=""><?php _e('Choose an Image Style', 'sola-testimonials'); ?></label></th>
         <td>        

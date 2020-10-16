@@ -1,6 +1,9 @@
 <?php $sola_t_options = get_option('sola_t_options_settings'); ?>
 <h4><?php _e('The below options will only affect testimonials using the \'Single\' or \'Grid\' Layouts. To change the options of your slider, plese navigate to the \'Slider\' tab.', 'sola-testimonials'); ?><h4>
 <form name="sola_t_options_form" method="post">
+    <?php 
+        wp_nonce_field( 'sola_settings_options_nonce', 'sola_settings_options_nonce' );
+    ?>
     <tr>
         <th><label for=""><?php _e('Show Testimonial Title', 'sola-testimonials'); ?></label></th>
         <td>        
