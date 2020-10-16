@@ -677,6 +677,7 @@ function sola_t_meta_box_contents(){
     </tr>
     <?php if(function_exists('sola_t_pro_activate')){ ?>
         <?php
+        
         global $sola_t_pro_version;
         if($sola_t_pro_version <= "1.2"){
         ?>
@@ -862,7 +863,7 @@ function sola_t_admin_head(){
     if (isset($_POST['sola_t_send_feedback'])) {
         $nonceKey = 'sola_feedback_nonce';
         if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
-            die();
+            wp_die( __("Execution has been stopped!", sola-testimonials) );
         }
 
         $headers_mail = 'From: '.$_POST['sola_t_feedback_email'].' < '.$_POST['sola_t_feedback_email'].' >' ."\r\n";
@@ -916,7 +917,7 @@ function sola_t_save_options(){
         
         $nonceKey = 'sola_settings_options_nonce';
         if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
-            die();
+            wp_die( __("Execution has been stopped!", sola-testimonials) );
         }
 
         if(function_exists('sola_t_pro_activate')){
@@ -962,7 +963,7 @@ function sola_t_save_options(){
 
         $nonceKey = 'sola_settings_styles_nonce';
         if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
-            die();
+            wp_die( __("Execution has been stopped!", sola-testimonials) );
         }    
 
         extract($_POST);
