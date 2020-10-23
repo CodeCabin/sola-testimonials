@@ -11,6 +11,18 @@
  */
 
 /**
+ * 3.0.0 - 2020-10-16 - Medium priority
+ * Renamed to Super Testimonials
+ * Resolved Security issues in settings and Feedback area
+ * Tested up to WordPress 5.5.1
+ * Added 'nofollow' link toggle setting
+ * Modernized Settings and Feedback Area
+ * Fixed bugs with setting selection and persistence
+ * Fixed testimonial length implementation
+ * Added new updated super shortcodes
+ * Fixed a bug where round image styling was not loading with pagnination
+ * Fixed various issues
+
  * 2.0.0 - 2020-01-08 - Medium priority
  * Tested up to WordPress 5.4
  * Fixed a bug where styles.css loads on all pages
@@ -232,7 +244,7 @@ function sola_t_init(){
         exit();
     }
 
-    if (isset($_GET['post_type']) && $_GET['post_type'] == "testimonials") {
+    if (isset($_GET['post_type']) && $_GET['post_type'] == "Testimonials") {
         
         global $sola_t_version;
         /* check if their using APC object cache, if yes, do nothing with the welcome page as it causes issues when caching the DB options */
@@ -422,7 +434,7 @@ function sola_t_admin_styles(){
     $pages = array('sola_t_settings', 'sola_t_feedback');
 
     /* Check if user is viewing our admin pages */
-    if((!empty($_GET['page']) && in_array($_GET['page'], $pages)) || (!empty('sola_t_subm_forms' === get_post_type())) || (!empty('testimonials' === get_post_type())) || (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'sola_t_categories') ){
+    if((!empty($_GET['page']) && in_array($_GET['page'], $pages)) || (!empty('sola_t_subm_forms' === get_post_type())) || (!empty('Testimonials' === get_post_type())) || (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'sola_t_categories') ){
         wp_enqueue_style('thickbox');
     
         wp_register_style('sola-t-jquery-ui-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.css');
@@ -486,6 +498,10 @@ function sola_t_settings_page(){
     */
 
     sola_t_save_options();
+
+    if(function_exists('sola_t_pro_activate')){
+        sola_t_save_pro_settings();
+    }
     include 'includes/settings.php';
     
 }
@@ -609,7 +625,7 @@ function sola_t_read_more($more) {
     $link = $options['read_more_link'];
     
 
-    if (get_post_type() == "testimonials") {
+    if (get_post_type() == "Testimonials") {
         if(isset($link) && $link != ""){
             $more = "... <a class=\"read-more\" href=\"".get_permalink(get_the_ID())."\">$link</a>";
         } else {
@@ -672,7 +688,7 @@ function sola_t_meta_box_contents(){
     <tr>
         <th><label for="sola_t_website_address"><?php _e('Website Address', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_website_address" value="<?php if($sola_t_website_address = get_post_meta($post_id, 'sola_t_website_address')){ echo $sola_t_website_address[0]; } else { echo 'http://'; } ?>" placeholder="<?php _e('User Web Address', 'sola-testimonials'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_website_address" value="<?php if($sola_t_website_address = get_post_meta($post_id, 'sola_t_website_address')){ echo $sola_t_website_address[0]; } ?>" placeholder="<?php _e('User Web Address', 'sola-testimonials'); ?>"/>
         </td>
     </tr>
     <?php if(function_exists('sola_t_pro_activate')){ ?>
@@ -758,7 +774,13 @@ function sola_t_save_testimonial_meta($post_id) {
     }
 
     if(isset($_REQUEST['sola_t_website_address'])){
-        update_post_meta( $post_id, 'sola_t_website_address', sanitize_text_field( $_REQUEST['sola_t_website_address'] ) );
+        if(($_REQUEST['sola_t_website_address']) == ''){
+            update_post_meta( $post_id, 'sola_t_website_address', '');
+        } elseif ((substr($_REQUEST['sola_t_website_address'], 0, 7) != 'http://') && (substr($_REQUEST['sola_t_website_address'], 0, 8) != 'https://')){
+            update_post_meta( $post_id, 'sola_t_website_address', 'https://'.sanitize_text_field( $_REQUEST['sola_t_website_address'] ) );
+        } else {
+            update_post_meta( $post_id, 'sola_t_website_address', sanitize_text_field( $_REQUEST['sola_t_website_address'] ) );
+        }
     }
     
     if(isset($_REQUEST['sola_t_image_url'])){
@@ -863,7 +885,7 @@ function sola_t_admin_head(){
     if (isset($_POST['sola_t_send_feedback'])) {
         $nonceKey = 'sola_feedback_nonce';
         if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
-            wp_die( __("Execution has been stopped!", sola-testimonials) );
+            wp_die( __("Execution has been stopped!", 'sola-testimonials') );
         }
 
         $headers_mail = 'From: '.$_POST['sola_t_feedback_email'].' < '.$_POST['sola_t_feedback_email'].' >' ."\r\n";
@@ -917,12 +939,14 @@ function sola_t_save_options(){
         
         $nonceKey = 'sola_settings_options_nonce';
         if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
-            wp_die( __("Execution has been stopped!", sola-testimonials) );
+            wp_die( __("Execution has been stopped!", 'sola-testimonials') );
         }
 
         if(function_exists('sola_t_pro_activate')){
             if(function_exists('sola_t_pro_save_options')){
                 sola_t_pro_save_options();
+                sola_t_save_slider_settings();
+
             }
         } else {
         
@@ -963,7 +987,7 @@ function sola_t_save_options(){
 
         $nonceKey = 'sola_settings_styles_nonce';
         if(!wp_verify_nonce($_POST[$nonceKey], $nonceKey)){
-            wp_die( __("Execution has been stopped!", sola-testimonials) );
+            wp_die( __("Execution has been stopped!", 'sola-testimonials') );
         }    
 
         extract($_POST);
@@ -997,7 +1021,7 @@ function sola_t_save_options(){
 function sola_t_loop_control( $query ) {
 
     if (!is_single() && !is_admin()) { 
-        if (isset($query->query['post_type']) && $query->query['post_type'] == "testimonials") {            
+        if (isset($query->query['post_type']) && $query->query['post_type'] == "Testimonials") {            
             $query->set( 'meta_query', array(
                     array(
                           'key' => '_sola_t_status',

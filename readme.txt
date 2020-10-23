@@ -4,7 +4,7 @@ Donate link: http://solaplugins.com
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
 Requires at least: 4.4
 Requires PHP: 5.3
-Tested up to: 5.3.0
+Tested up to: 5.5.1
 Stable tag: trunk
 License: GPLv2
 
@@ -34,6 +34,7 @@ The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful
 * Set the read more link
 * Show/hide the testimonial name
 * Show/hide the testimonial website and link
+* Toggle 'nofollow' website links
 * All testimonial links are nofollow as per Google Webmaster Guidelines
 * Show/hide the testimonial image
 * Customizable filters
@@ -197,6 +198,18 @@ Not applicable.
 
 == Changelog ==
 
+
+= 3.0.0 - 2020-10-16 - Medium priority =
+* Renamed to Super Testimonials
+* Resolved Security issues in settings and Feedback area
+* Tested up to WordPress 5.5.1
+* Added 'nofollow' link toggle setting
+* Modernized Settings and Feedback Area
+* Fixed bugs with setting selection and persistence
+* Fixed testimonial length implementation
+* Added new updated super shortcodes
+* Fixed a bug where round image styling was not loading with pagnination
+* Fixed various issues
 
 = 2.0.0 - 2020-01-08 - Medium priority =
 * Tested up to WordPress 5.4

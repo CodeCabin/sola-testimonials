@@ -57,7 +57,7 @@ img#pro_only:hover {
 #sola_t_image_2 { cursor: pointer; }
 
 .create_category{
-    margin: 10px 0;
+    margin: 20px 20px 5px 20px !important;
 }
 
 .nav-tab-wrapper{
@@ -126,3 +126,5 @@ img#pro_only:hover {
 .sola_t_feedback_wrap form table input[type=text]{
     width: 200px;
 }
+
+
