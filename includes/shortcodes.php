@@ -47,32 +47,59 @@ function sola_t_all_testimonials($atts){
         }
     }
 
-
-
     if(function_exists('sola_t_register_pro')){
         if( isset( $atts['per_page'] ) ) { 
             $testimonials_per_page = $atts['per_page']; 
-            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
+            $args = array(
+                'post_type' => 'Testimonials',
+                'posts_per_page' => $testimonials_per_page,
+                'status' => 'publish'
+            );
+            $my_query = new WP_Query($args);
+
         } else {
-            
-            $my_query = testimonials_in_categories($atts);    
+            $my_query = testimonials_in_categories($atts);  
+
         }
     } else {
         if (isset($atts['random']) && $atts['random'] == "yes") {
-            $my_query = new WP_Query('post_type=Testimonials&posts_per_page=1&orderby=rand');
-        }
-        else if (isset($atts['id']) && $atts['id'] > 0) {
-            $my_query = new WP_Query('post_type=Testimonials&posts_per_page=1&p='.$atts['id']);
+            $args = array(
+                'post_type' => 'Testimonials',
+                'posts_per_page' => 1,
+                'orderby' => 'rand',
+                'status' => 'publish'
+            );
+            $my_query = new WP_Query($args);
+
+        } else if (isset($atts['id']) && $atts['id'] > 0) {
+            $args = array(
+                'post_type' => 'Testimonials',
+                'posts_per_page' => 1,
+                'p' => $atts['id'],
+                'status' => 'publish'
+            );
+            $my_query = new WP_Query($args);
+
         } else if( isset( $atts['per_page'] ) ) { 
-            $testimonials_per_page = $atts['per_page']; 
-            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.$testimonials_per_page.'&status=publish');
+            $testimonials_per_page = $atts['per_page'];
+            $args = array(
+                'post_type' => 'Testimonials',
+                'posts_per_page' => $testimonials_per_page,
+                'status' => 'publish'
+            );
+            $my_query = new WP_Query($args);
+
         } else {
-            
-            $my_query = new WP_Query(array('post_type'=>'Testimonials','posts_per_page'=>-1,'post_status'=>'publish'));
+            $args = array(
+                'post_type' => 'Testimonials',
+                'posts_per_page' => -1,
+                'status' => 'publish',
+            );
+            $my_query = new WP_Query($args);
             
         }
     }
-
+    
     $ret = "<div class='sola_t_container_parent'>";
 
    

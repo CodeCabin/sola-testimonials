@@ -52,7 +52,7 @@ if(version_compare(get_bloginfo('version'),'5.0', '>=') ){
 		//Testimonials Array
 		$args = array(
 		'posts_per_page'   => -1,
-		'post_type'        => 'testimonials',
+		'post_type'        => 'Testimonials',
 		);
 
 		$testimonials = get_posts( $args );
