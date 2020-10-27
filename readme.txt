@@ -1,6 +1,6 @@
 === Super Testimonials ===
 Contributors: SolaPlugins, NickDuncan, CodeCabin_
-Donate link: http://solaplugins.com
+Donate link: https://codecabin.io/
 Tags: testimonial, testimonials, testimonial plugin, testimonial widget, testimonial manager
 Requires at least: 4.4
 Requires PHP: 5.3
@@ -53,8 +53,8 @@ The easiest to use Testimonial plugin! Showcase your testimonials in a beautiful
 * Allow users to submit reviews (star ratings included in testimonial)
 * Export testimonials into a CSV file
 * Get notified via Slack when a new testimonial has been submitted
-* Priority [support](http://solaplugins.com/support-desk) 
-* Get the [Super Testimonials Premium Version](http://solaplugins.com/plugins/sola-testimonials/?utm_source=wordpress&utm_medium=click&utm_campaign=readme) now
+* Priority [support](http://codecabin.io/store/support/) 
+* Get the [Super Testimonials Premium Version](https://codecabin.io/store/super-testimonials-pro/?utm_source=wordpress&utm_medium=click&utm_campaign=readme) now
 
 = Coming Soon =
 * Themes: Testimonial themes will be created and added every week
@@ -165,7 +165,7 @@ Did you know that 90% of people trust testimonials from people they know, and th
 Once installed and activated, a link should appear in your left navigation panel within your wp-admin section. Click on the "Testimonials" link and follow the on screen instructions.
 
 = How do I get the premium version of Super Testimonials? =
-Order your copy of [Super Testimonials Premium](http://solaplugins.com/plugins/sola-testimonials/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
+Order your copy of [Super Testimonials Premium](https://codecabin.io/store/super-testimonials-pro/?utm_source=wordpress&utm_medium=click&utm_campaign=readme).
 
 = How do I create a Testimonial? =
 * Click on Testimonials in your left navigation menu

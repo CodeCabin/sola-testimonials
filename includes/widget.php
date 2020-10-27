@@ -247,7 +247,7 @@ class Sola_Testimonials_Widget_Slider_Basic extends WP_Widget {
 
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Testimonials', 'sola-testimonials' );
 
-		$pro_link = "<a href='http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_slider_widget'>" . __( 'Pro version', 'sola-testimonials' ) . "</a>";
+		$pro_link = "<a href='https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_slider_widget'>" . __( 'Pro version', 'sola-testimonials' ) . "</a>";
 
 		$ret = "";
 

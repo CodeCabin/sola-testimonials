@@ -91,7 +91,7 @@
     <?php 
     
         } else { 
-            $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=ratings_options_page\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+            $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=ratings_options_page\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
     ?>
         <tr>
             <th><label for=""><?php _e('Show Rating', 'sola-testimonials'); ?></label></th>
@@ -111,7 +111,7 @@
     <?php 
     
         } else { 
-            $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=export_options_page\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+            $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=export_options_page\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
     ?>
         <tr>
             <th><label for=""><?php _e('Export Testimonials', 'sola-testimonials'); ?></label></th>

@@ -2,7 +2,7 @@
 if(function_exists('sola_t_register_pro')){
     echo submission_form_shortcode_row();
 } else {
-    $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_submission_form_shortcode\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+    $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_submission_form_shortcode\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
     echo "<tr>
             <th><label for=\"\">".__('Submit A Testimonial', 'sola-testimonials')."</label></th>
             <td>        
@@ -56,7 +56,7 @@ if(function_exists('sola_t_register_pro')){
 if(function_exists('sola_t_register_pro')){
     echo slider_shortcode_row();
 } else {
-    $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_slider_shortcode\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+    $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_slider_shortcode\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
     echo "<tr>
             <th><label for=\"\">".__('Display Testimonials In A Slider', 'sola-testimonials')."</label></th>
             <td>        
@@ -74,7 +74,7 @@ if(function_exists('sola_t_register_pro')){
 if(function_exists('sola_t_register_pro')){
     echo categories_shortcode_row();
 } else {
-    $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_categories_shortcode\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+    $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_categories_shortcode\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
     echo "<tr>
             <th><label for=\"\">".__('Display Testimonials Based On Category', 'sola-testimonials')."</label></th>
             <td>        
