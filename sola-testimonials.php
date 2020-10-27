@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Super Testimonials
- * Plugin URI: http://solaplugins.com
+ * Plugin URI: https://codecabin.io/
  * Description: A super easy to use and comprehensive Testimonial plugin.
  * Version: 3.0.0
  * Author: Sola Plugins
- * Author URI: http://solaplugins.com
+ * Author URI: https://codecabin.io/
  * License: GPL2
  * Text Domain: sola-testimonials
  */
@@ -200,7 +200,7 @@ register_uninstall_hook(__FILE__, 'sola_t_uninstall');
 global $sola_t_version;
 global $sola_t_version_string;
 
-$sola_t_version = "2.0.0";
+$sola_t_version = "3.0.0";
 $sola_t_version_string = "Basic";
 
 
@@ -736,7 +736,7 @@ function sola_t_meta_box_contents(){
         <tr>
             <th><label for="sola_t_rating"><?php _e('Rating', 'sola-testimonials'); ?></label></th>
             <td>
-                <?php $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_add_rating\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>"; ?>
+                <?php $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_add_rating\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>"; ?>
                 <p><?php _e("Star Ratings are only available in the $pro_link", 'sola-testimonials'); ?>
             </td>
         </tr>
@@ -889,7 +889,7 @@ function sola_t_admin_head(){
         }
 
         $headers_mail = 'From: '.$_POST['sola_t_feedback_email'].' < '.$_POST['sola_t_feedback_email'].' >' ."\r\n";
-        if(wp_mail("support@solaplugins.com", "Plugin feedback", 
+        if(wp_mail("support@codecabin.co.za", "Plugin feedback", 
                 "Name: ". sanitize_text_field($_POST['sola_t_feedback_name']) ."\n\r".
                 "Email: ". sanitize_text_field($_POST['sola_t_feedback_email']) ."\n\r".
                 "Website: ". sanitize_text_field($_POST['sola_t_feedback_website']) ."\n\r".
@@ -911,7 +911,7 @@ function sola_t_admin_head(){
             } 
             else {
                 echo "<div id=\"message\" class=\"error\">";
-                echo "<p>".__("There was a problem sending your feedback. Please log your feedback on ","sola-testimonials")."<a href='http://solaplugins.com/support-desk' target='_BLANK'>http://solaplugins.com/support-desk</a></p>";
+                echo "<p>".__("There was a problem sending your feedback. Please log your feedback on ","sola-testimonials")."<a href='http://codecabin.io/store/support/' target='_BLANK'>http://codecabin.io/store/support/</a></p>";
                 echo "</div>";
             }
         }

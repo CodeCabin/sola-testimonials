@@ -6,7 +6,7 @@ if(function_exists('sola_t_register_pro')){
 <tr>
     <th style="text-align: center;" colspan="3">        
         <?php 
-            $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_submission_form_settings\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+            $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_submission_form_settings\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
             echo "<h3>".__("Allow users to submit testimonials using a fully comprehensive submission form on your website with the $pro_link.", "sola-testimonials")."</h3>";
         ?>
     </th>

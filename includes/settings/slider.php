@@ -6,7 +6,7 @@
 <tr>
     <td style="text-align: center;">        
         <?php 
-            $pro_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_slider_settings\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
+            $pro_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_slider_settings\" target=\"_BLANK\">".__('Premium Version', 'sola-testimonials')."</a>";
             echo "<h3>".__("Display your testimonials in a responsive and mobile friendly slider with the $pro_link.", "sola-testimonials")."</h3>";
         ?>
         <br/>

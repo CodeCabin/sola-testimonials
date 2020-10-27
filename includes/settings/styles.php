@@ -81,7 +81,7 @@
                 <?php if(!function_exists('sola_t_register_pro')){ ?>
                 <div class="description">
                     &nbsp;  
-                    <?php $purchase_link = "<a href=\"http://solaplugins.com/plugins/sola-testimonials/?utm_source=plugin&utm_medium=link&utm_campaign=sola_t_themes\" target=\"_BLANK\">".__('Unlock all themes', 'sola-testimonials')."</a>"; ?>
+                    <?php $purchase_link = "<a href=\"https://codecabin.io/store/super-testimonials-pro/?utm_source=plugin&utm_medium=link&utm_campaign=super_t_themes\" target=\"_BLANK\">".__('Unlock all themes', 'sola-testimonials')."</a>"; ?>
                     <p><?php _e("$purchase_link for only $19.99 once off." ,"sola-testimonials"); ?></p>
                 </div>
             <?php } ?>
