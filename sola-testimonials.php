@@ -11,7 +11,7 @@
  */
 
 /**
- * 3.0.0 - 2020-10-16 - Medium priority
+ * 3.0.0 - 2020-10-28 - Medium priority
  * Renamed to Super Testimonials
  * Resolved Security issues in settings and Feedback area
  * Tested up to WordPress 5.5.1
@@ -516,7 +516,8 @@ function sola_t_rest_routes_init() {
 
     register_rest_route('sola_t/v1','/get_all_testimonials', array(
                         'methods' => 'GET, POST',
-                        'callback' => 'sola_t_get_testimonials_rest'
+                        'callback' => 'sola_t_get_testimonials_rest',
+                        'permission_callback' => '__return_true',
     ));
 
 }
