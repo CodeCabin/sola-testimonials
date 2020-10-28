@@ -1,6 +1,6 @@
 <?php
 global $current_user;
-get_currentuserinfo();
+wp_get_current_user();
 ?>
 <div class="wrap">
     <h2><?php _e("Super Testimonials Feedback","sola-testimonials") ?></h2>
