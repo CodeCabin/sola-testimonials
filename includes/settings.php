@@ -22,8 +22,9 @@
             <?php } ?>             
         </h2>
         <?php
-        if(isset($_GET['tab'])){
-            $tab = $_GET['tab'];
+        $tab_sanitized = sanitize_text_field($_GET['tab']);
+        if(isset($tab_sanitized)){
+            $tab = $tab_sanitized;
         } else {
             $tab = '';
         }

@@ -96,7 +96,7 @@
     <tr>
         <th><label for=""><?php _e('Custom CSS', 'sola-testimonials'); ?></label></th>
         <td>        
-            <textarea name="sola_t_custom_css" id="sola_t_custom_css" style="width: 50%; height: 250px;"><?php if(isset($style_settings['custom_css']) && $style_settings['custom_css'] != "") { echo $style_settings['custom_css']; } ?></textarea>
+            <textarea name="sola_t_custom_css" id="sola_t_custom_css" style="width: 50%; height: 250px;"><?php if(isset($style_settings['custom_css']) && $style_settings['custom_css'] != "") { echo strip_tags($style_settings['custom_css']); } ?></textarea>
             <p class="description"><?php _e('Style your testimonials to your preference.', 'sola-testimonials'); ?></p>
         </td>
     </tr>     

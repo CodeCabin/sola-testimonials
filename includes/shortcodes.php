@@ -27,7 +27,7 @@ function sola_t_all_testimonials($atts){
     isset($options['show_image']) ? $show_image = $options['show_image'] : $show_image = "";
     isset($options['image_size']) ? $image_size = $options['image_size'] : $image_size = "";
     isset($options['show_rating']) ? $show_rating = $options['show_rating'] : $show_rating = "";
-    isset($options['excerpt_length']) ? $excerpt_length = intval($options['excerpt_length']) : $excerpt_length = "";    
+    isset($options['excerpt_length']) ? $excerpt_length = $options['excerpt_length'] : $excerpt_length = "";    
     if(isset($options['sola_t_allow_html']) && $options['sola_t_allow_html'] == 1) { $sola_t_allow_html = 1; } else { $sola_t_allow_html = 0; }
     
     isset($options['sola_t_content_type']) ? $content_type = $options['sola_t_content_type'] : $content_type = 0;
@@ -189,10 +189,10 @@ function sola_t_all_testimonials($atts){
 
                 if ( $material_design ) { 
                     $the_website = "
-                        <span class=\"sola_t_website\"><a href=\"".$website."\" target=\"_BLANK\" ".$nofollow.">".$website_name."</a>"."</span>";
+                        <span class=\"sola_t_website\"><a href=\"".esc_url($website)."\" target=\"_BLANK\" ".$nofollow.">".esc_html($website_name)."</a>"."</span>";
                 } else {
                     $the_website = "
-                        <span class=\"sola_t_website\">, <a href=\"".$website."\" target=\"_BLANK\" ".$nofollow." >".$website_name."</a>"."</span>";
+                        <span class=\"sola_t_website\">, <a href=\"".esc_url($website)."\" target=\"_BLANK\" ".$nofollow." >".esc_html($website_name)."</a>"."</span>";
                 }
             } else {
                 $the_website = "<span class=\"sola_t_website\">&nbsp;</span>";
@@ -208,7 +208,7 @@ function sola_t_all_testimonials($atts){
         if(isset($show_rating) && $show_rating == 1){
 
             if($rating = get_post_meta($post->ID, 'sola_t_rating', true)){
-                $the_rating = '<div class="sola_t_display_rating" score="'.$rating.'"></div>';
+                $the_rating = '<div class="sola_t_display_rating" score="'.esc_attr($rating).'"></div>';
             } else {
                 $the_rating = "";
             }
@@ -296,7 +296,7 @@ function sola_t_all_testimonials($atts){
 
                     $author_email_address = $sola_t_user_email;
 
-                    $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=".$image_size."&d=mm";
+                    $grav_url = esc_url($http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=".$image_size."&d=mm");
                     $the_image_url = $grav_url;
                     
                     if (isset($display_size)) { $image_size = $display_size; } /* retina size change */
@@ -307,7 +307,7 @@ function sola_t_all_testimonials($atts){
 
                     $author_email_address = get_the_author_meta('user_email');
 
-                    $grav_url = $http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=".$image_size."&d=mm";
+                    $grav_url = esc_url($http_req."www.gravatar.com/avatar/".md5(strtolower(trim($author_email_address)))."?s=".$image_size."&d=mm");
                     $the_image_url = $grav_url;
 
                     if (isset($display_size)) { $image_size = $display_size; } /* retina size change */
@@ -519,7 +519,7 @@ function sola_t_ajax_callback(){
 
         if( $_POST['action'] == 'change_testimonial_page' ){
 
-            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.$_POST['per_page'].'&status=publish&paged='.$_POST['page_num']);
+            $my_query = new WP_Query('post_type=Testimonials&posts_per_page='.sanitize_text_field($_POST['per_page']).'&status=publish&paged='.sanitize_text_field($_POST['page_num']));
 
             $ret = "";
 
@@ -534,7 +534,7 @@ function sola_t_ajax_callback(){
             isset($options['show_image']) ? $show_image = $options['show_image'] : $show_image = "";
             isset($options['image_size']) ? $image_size = $options['image_size'] : $image_size = "";
             isset($options['show_rating']) ? $show_rating = $options['show_rating'] : $show_rating = "";
-            isset($options['excerpt_length']) ? $excerpt_length = intval($options['excerpt_length']) : $excerpt_length = "";    
+            isset($options['excerpt_length']) ? $excerpt_length = $options['excerpt_length'] : $excerpt_length = "";    
             if(isset($options['sola_t_allow_html']) && $options['sola_t_allow_html'] == 1) { $sola_t_allow_html = 1; } else { $sola_t_allow_html = 0; }
             
             isset($options['sola_t_content_type']) ? $content_type = $options['sola_t_content_type'] : $content_type = 0;
@@ -811,7 +811,8 @@ add_action( 'wp_ajax_sola_t_update_gutenberg_changes', 'sola_t_update_gutenberg_
 add_action( 'wp_ajax_nopriv_sola_t_update_gutenberg_changes', 'sola_t_update_gutenberg_changes' );
 
 function sola_t_update_gutenberg_changes(){
-    $id = (isset($_POST['id'])) ? $_POST['id'] : '';
+    $id_sanitized = sanitize_text_field($_POST['id']);
+    $id = (isset($id_sanitized)) ? $id_sanitized : '';
     $content = '[super_testimonial id=' . $id . ']';
     $content = do_shortcode($content);
     $error_msg = '<p>The testimonial with the selected ID does not exist.</p>';

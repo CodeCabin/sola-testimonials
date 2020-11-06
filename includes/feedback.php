@@ -17,7 +17,7 @@ wp_get_current_user();
                         <label><?php _e("Your Name","sola-testimonials"); ?></label>
                     </td>
                     <td>
-                        <input type="text" class='sola-input' name="sola_t_feedback_name" value="<?php echo $current_user->user_firstname; ?>"/>
+                        <input type="text" class='sola-input' name="sola_t_feedback_name" value="<?php echo esc_attr($current_user->user_firstname); ?>"/>
                 </td>
                 </tr>
                 <tr>
@@ -25,7 +25,7 @@ wp_get_current_user();
                         <label><?php _e("Your Email","sola-testimonials"); ?></label>
                     </td>
                     <td>
-                        <input type="text" class='sola-input' name="sola_t_feedback_email" value="<?php echo $current_user->user_email; ?>"/>
+                        <input type="text" class='sola-input' name="sola_t_feedback_email" value="<?php echo esc_attr($current_user->user_email); ?>"/>
                 </td>
                 </tr>
                 <tr>
@@ -33,7 +33,7 @@ wp_get_current_user();
                         <label><?php _e("Your Website","sola-testimonials"); ?></label>
                     </td>
                     <td>
-                        <input type="text" class='sola-input' name="sola_t_feedback_website" value="<?php echo get_site_url(); ?>"/>
+                        <input type="text" class='sola-input' name="sola_t_feedback_website" value="<?php echo esc_url(get_site_url()); ?>"/>
                 </td>
                 </tr>
                 <tr>
