@@ -56,14 +56,14 @@ class Sola_Testimonials_Widget_Single extends WP_Widget {
 		$ret = "";
 
 		$ret .= "<p>";
-		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "'>" . __( 'Title:', 'sola-testimonials' ) . "</label>";
-		$ret .= "<input class='widefat' id='" . $this->get_field_id( 'title' ) . "' name='" . $this->get_field_name( 'title' ) . "' type='text' value='" . esc_attr( $title ) . "'>";	
+		$ret .= "<label for='" . esc_attr($this->get_field_id( 'title' )) . "'>" . __( 'Title:', 'sola-testimonials' ) . "</label>";
+		$ret .= "<input class='widefat' id='" . esc_attr($this->get_field_id( 'title' )) . "' name='" . esc_attr($this->get_field_name( 'title' )) . "' type='text' value='" . esc_attr( $title ) . "'>";	
 		$ret .= "</p>";
 
 		$ret .= "<p>";
-		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "''>" . __( 'Select a testimonial:', 'sola-testimonials' ) . "</label>";		
+		$ret .= "<label for='" . esc_attr($this->get_field_id( 'title' )) . "''>" . __( 'Select a testimonial:', 'sola-testimonials' ) . "</label>";		
 
-		$ret .= "<select name='" . $this->get_field_name( 'sola_t_chosen_testimonial' ) . "' class='widefat' id='" . $this->get_field_id( 'sola_t_chosen_testimonial' ) . "'>";
+		$ret .= "<select name='" . esc_attr($this->get_field_name( 'sola_t_chosen_testimonial' )) . "' class='widefat' id='" . esc_attr($this->get_field_id( 'sola_t_chosen_testimonial' )) . "'>";
 
 		$ret .= "<option value=''></option>";
 
@@ -170,8 +170,8 @@ class Sola_Testimonials_Widget_Random extends WP_Widget {
 		$ret = "";
 
 		$ret .= "<p>";
-		$ret .= "<label for='" . $this->get_field_id( 'title' ) . "'>" . __( 'Title:', 'sola-testimonials' ) . "</label>";
-		$ret .= "<input class='widefat' id='" . $this->get_field_id( 'title' ) . "' name='" . $this->get_field_name( 'title' ) . "' type='text' value='" . esc_attr( $title ) . "'>";	
+		$ret .= "<label for='" . esc_attr($this->get_field_id( 'title' )) . "'>" . __( 'Title:', 'sola-testimonials' ) . "</label>";
+		$ret .= "<input class='widefat' id='" . esc_attr($this->get_field_id( 'title' )) . "' name='" . esc_attr($this->get_field_name( 'title' )) . "' type='text' value='" . esc_attr( $title ) . "'>";	
 		$ret .= "</p>";
 
 		wp_reset_query();

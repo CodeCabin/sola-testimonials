@@ -46,21 +46,21 @@
     <tr class="excerpt_length_row">
         <th><label for=""><?php _e('Excerpt Length', 'sola-testimonials'); ?></label></th>
         <td>        
-            <input type="text" name="sola_t_except_length" id="sola_t_except_length" value="<?php if(isset($sola_t_options['excerpt_length'])){ echo $sola_t_options['excerpt_length']; } ?>" />
+            <input type="text" name="sola_t_except_length" id="sola_t_except_length" value="<?php if(isset($sola_t_options['excerpt_length'])){ echo intval($sola_t_options['excerpt_length']); } ?>" />
             <p class="description"><?php _e('How long should your testimonial teaser be? (Specify number of words).', 'sola-testimonials'); ?></p>
         </td>
     </tr>
     <tr>
         <th><label for=""><?php _e('Default Image Size', 'sola-testimonials'); ?></label></th>
         <td>        
-            <input type="text" name="sola_t_image_size" id="sola_t_image_size" value="<?php if(isset($sola_t_options['image_size'])){ echo $sola_t_options['image_size']; } ?>" />
+            <input type="text" name="sola_t_image_size" id="sola_t_image_size" value="<?php if(isset($sola_t_options['image_size'])){ echo intval($sola_t_options['image_size']); } ?>" />
             <p class="description"><?php _e('Size of testimonial images (px).', 'sola-testimonials'); ?></p>
         </td>
     </tr>
     <tr>
         <th><label for=""><?php _e('Read More Link', 'sola-testimonials'); ?></label></th>
         <td>        
-            <input type="text" name="sola_t_read_more_link" id="sola_t_read_more_link" value="<?php if(isset($sola_t_options['read_more_link']) && $sola_t_options['read_more_link'] != ""){ echo $sola_t_options['read_more_link']; } ?>" />
+            <input type="text" name="sola_t_read_more_link" id="sola_t_read_more_link" value="<?php if(isset($sola_t_options['read_more_link']) && $sola_t_options['read_more_link'] != ""){ echo esc_attr($sola_t_options['read_more_link']); } ?>" />
         </td>
     </tr>
     <tr>

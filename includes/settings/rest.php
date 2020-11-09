@@ -21,7 +21,7 @@
     <tbody>
         <tr>
             <td width="200">Secret Token:</td>
-            <td width="300px"><input type="text" width="300px" id="sola_testimonial_token" disabled='true' value="<?php if(function_exists("sola_t_get_new_token")){ echo sola_t_get_new_token(); }else{ echo $token;} ?>" readonly>
+            <td width="300px"><input type="text" width="300px" id="sola_testimonial_token" disabled='true' value="<?php if(function_exists("sola_t_get_new_token")){ echo esc_attr(sola_t_get_new_token()); }else{ echo esc_attr($token);} ?>" readonly>
                 <td>
                     <a class="button button-secondary"  href="?post_type=testimonials&page=sola_t_settings&tab=rest&s_testimonial_action=generate_new_token">Generate New </a>
                 </td>

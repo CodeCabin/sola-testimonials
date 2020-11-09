@@ -203,8 +203,6 @@ global $sola_t_version_string;
 $sola_t_version = "3.0.0";
 $sola_t_version_string = "Basic";
 
-
-
 function sola_t_register_widgets(){
     
     register_widget( 'Sola_Testimonials_Widget_Single' );
@@ -434,7 +432,7 @@ function sola_t_admin_styles(){
     $pages = array('sola_t_settings', 'sola_t_feedback');
 
     /* Check if user is viewing our admin pages */
-    if((!empty($_GET['page']) && in_array($_GET['page'], $pages)) || (!empty('sola_t_subm_forms' === get_post_type())) || (!empty('Testimonials' === get_post_type())) || (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'sola_t_categories') ){
+    if((!empty($_GET['page']) && in_array($_GET['page'], $pages)) || (!empty('sola_t_subm_forms' === get_post_type())) || (!empty('testimonials' === get_post_type())) || (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'sola_t_categories') ){
         wp_enqueue_style('thickbox');
     
         wp_register_style('sola-t-jquery-ui-css', SOLA_T_PLUGIN_DIR.'/css/jquery-ui.css');
@@ -626,7 +624,7 @@ function sola_t_read_more($more) {
     $link = $options['read_more_link'];
     
 
-    if (get_post_type() == "Testimonials") {
+    if (get_post_type() == "testimonials") {
         if(isset($link) && $link != ""){
             $more = "... <a class=\"read-more\" href=\"".get_permalink(get_the_ID())."\">$link</a>";
         } else {
@@ -659,13 +657,13 @@ function sola_t_meta_box_contents(){
     <tr>
         <th><label for="sola_t_user_name"><?php _e('User Name', 'sola-testimonials'); ?></label></th>
         <td>        
-            <input class="sola_input" type="text" name="sola_t_user_name" value="<?php if($sola_t_user_name = get_post_meta($post_id, 'sola_t_user_name')){ echo $sola_t_user_name[0]; } ?>" placeholder="<?php _e('User Name', 'sola-testimonials'); ?>"/>    
+            <input class="sola_input" type="text" name="sola_t_user_name" value="<?php if($sola_t_user_name = get_post_meta($post_id, 'sola_t_user_name')){ echo esc_attr($sola_t_user_name[0]); } ?>" placeholder="<?php _e('User Name', 'sola-testimonials'); ?>"/>    
         </td>
     </tr>
     <tr>
         <th><label for="sola_t_image_url"><?php _e('User Email Address', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_user_email" value="<?php if($sola_t_user_email = get_post_meta($post_id, 'sola_t_user_email')){ echo $sola_t_user_email[0]; } ?>" placeholder="<?php _e('User Email Address', 'sola-testimonials'); ?>"/>            
+            <input class="sola_input" type="text" name="sola_t_user_email" value="<?php if($sola_t_user_email = get_post_meta($post_id, 'sola_t_user_email')){ echo esc_attr($sola_t_user_email[0]); } ?>" placeholder="<?php _e('User Email Address', 'sola-testimonials'); ?>"/>            
             <div class="description">
                 <p><?php _e('The users email address will be used to show their gravatar image. To use a custom image, leave this field blank and enter an Image URL below. ', 'sola-testimonials'); ?>
             </div>
@@ -674,7 +672,7 @@ function sola_t_meta_box_contents(){
     <tr>
         <th><label for="sola_t_image_url"><?php _e('Image URL', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_image_url" id="sola_t_user_upload_image" value="<?php if($sola_t_image_url = get_post_meta($post_id, 'sola_t_image_url')){ echo $sola_t_image_url[0]; } ?>" placeholder="<?php _e('Image URL', 'sola-testimonials'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_image_url" id="sola_t_user_upload_image" value="<?php if($sola_t_image_url = get_post_meta($post_id, 'sola_t_image_url')){ echo esc_url($sola_t_image_url[0]); } ?>" placeholder="<?php _e('Image URL', 'sola-testimonials'); ?>"/>
             <div class="description">
                 <p><?php _e('Leave this field blank to use the gravatar image of the author. The User Image (Right) will override this option.', 'sola-testimonials'); ?>
             </div>
@@ -683,13 +681,13 @@ function sola_t_meta_box_contents(){
     <tr>
         <th><label for="sola_t_website_name"><?php _e('Website Name', 'sola-testimonials'); ?></label>
         <td>
-            <input class="sola_input" type="text" name="sola_t_website_name" value="<?php if($sola_t_website_name = get_post_meta($post_id, 'sola_t_website_name')){ echo $sola_t_website_name[0]; } ?>" placeholder="<?php _e('User Website Name', 'sola-testimonials'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_website_name" value="<?php if($sola_t_website_name = get_post_meta($post_id, 'sola_t_website_name')){ echo esc_attr($sola_t_website_name[0]); } ?>" placeholder="<?php _e('User Website Name', 'sola-testimonials'); ?>"/>
         </td>        
     </tr>
     <tr>
         <th><label for="sola_t_website_address"><?php _e('Website Address', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" name="sola_t_website_address" value="<?php if($sola_t_website_address = get_post_meta($post_id, 'sola_t_website_address')){ echo $sola_t_website_address[0]; } ?>" placeholder="<?php _e('User Web Address', 'sola-testimonials'); ?>"/>
+            <input class="sola_input" type="text" name="sola_t_website_address" value="<?php if($sola_t_website_address_sanitized = get_post_meta($post_id, 'sola_t_website_address')){ echo esc_url($sola_t_website_address_sanitized[0]); } ?>" placeholder="<?php _e('User Web Address', 'sola-testimonials'); ?>"/>
         </td>
     </tr>
     <?php if(function_exists('sola_t_pro_activate')){ ?>
@@ -714,7 +712,7 @@ function sola_t_meta_box_contents(){
                 <?php 
                 $sola_t_rating_value = get_post_meta($post_id, 'sola_t_rating', true);
                 if($sola_t_rating_value){
-                    $sola_t_rating_value = intval($sola_t_rating_value);
+                    $sola_t_rating_value = $sola_t_rating_value;
                 } else {
                     $sola_t_rating_value = 0;
                 }
@@ -730,7 +728,7 @@ function sola_t_meta_box_contents(){
                     });
                 </script>                
                 <div id="sola_t_rating_container"></div>                
-                <input class="sola_input" type="hidden" name="sola_t_rating" id="sola_t_rating" value="<?php echo $sola_t_rating_value; ?>" />
+                <input class="sola_input" type="hidden" name="sola_t_rating" id="sola_t_rating" value="<?php echo esc_attr($sola_t_rating_value); ?>" />
             </td>
         </tr>
     <?php } } else { ?>
@@ -745,7 +743,7 @@ function sola_t_meta_box_contents(){
     <tr>
         <th><label><?php _e('Shortcode', 'sola-testimonials'); ?></label></th>
         <td>
-            <input class="sola_input" type="text" readonly name="sola_t_single_shortcode" value="<?php echo '[super_testimonial id='.$post->ID.']'; ?>" />
+            <input class="sola_input" type="text" readonly name="sola_t_single_shortcode" value="<?php echo esc_attr('[super_testimonial id='.$post->ID.']'); ?>" />
         </td>
     </tr>
     
@@ -766,38 +764,45 @@ function sola_t_save_testimonial_meta($post_id) {
         return;  
     }
     
-    if(isset($_REQUEST['sola_t_user_name'])){
-        update_post_meta( $post_id, 'sola_t_user_name', sanitize_text_field( $_REQUEST['sola_t_user_name'] ) );
+    $sola_t_username_sanitized = sanitize_text_field( $_REQUEST['sola_t_user_name'] );
+    if(isset($sola_t_username_sanitized)){
+        update_post_meta( $post_id, 'sola_t_user_name', $sola_t_username_sanitized );
     }
 
-    if(isset($_REQUEST['sola_t_website_name'])){
-        update_post_meta( $post_id, 'sola_t_website_name', sanitize_text_field( $_REQUEST['sola_t_website_name'] ) );
+    $sola_t_website_name_sanitized = sanitize_text_field( $_REQUEST['sola_t_website_name'] );
+    if(isset($sola_t_website_name_sanitized)){
+        update_post_meta( $post_id, 'sola_t_website_name', $sola_t_website_name_sanitized );
     }
 
-    if(isset($_REQUEST['sola_t_website_address'])){
-        if(($_REQUEST['sola_t_website_address']) == ''){
+    $sola_t_website_address_sanitized = esc_url_raw( $_REQUEST['sola_t_website_address'] );
+    if(isset($sola_t_website_address_sanitized)){
+        if(($sola_t_website_address_sanitized) == ''){
             update_post_meta( $post_id, 'sola_t_website_address', '');
-        } elseif ((substr($_REQUEST['sola_t_website_address'], 0, 7) != 'http://') && (substr($_REQUEST['sola_t_website_address'], 0, 8) != 'https://')){
-            update_post_meta( $post_id, 'sola_t_website_address', 'https://'.sanitize_text_field( $_REQUEST['sola_t_website_address'] ) );
+        } elseif ((substr($sola_t_website_address_sanitized, 0, 7) != 'http://') && (substr($sola_t_website_address_sanitized, 0, 8) != 'https://')){
+            update_post_meta( $post_id, 'sola_t_website_address', 'https://'.$sola_t_website_address_sanitized );
         } else {
-            update_post_meta( $post_id, 'sola_t_website_address', sanitize_text_field( $_REQUEST['sola_t_website_address'] ) );
+            update_post_meta( $post_id, 'sola_t_website_address', $sola_t_website_address_sanitized );
         }
     }
     
-    if(isset($_REQUEST['sola_t_image_url'])){
-        update_post_meta( $post_id, 'sola_t_image_url', sanitize_text_field( $_REQUEST['sola_t_image_url'] ) );
+    $sola_t_image_url_sanitized = esc_url_raw( $_REQUEST['sola_t_image_url'] );
+    if(isset($sola_t_image_url_sanitized)){
+        update_post_meta( $post_id, 'sola_t_image_url', $sola_t_image_url_sanitized );
     }
     
-    if(isset($_REQUEST['sola_t_user_email'])){
-        update_post_meta( $post_id, 'sola_t_user_email', sanitize_text_field( $_REQUEST['sola_t_user_email'] ) );
+    $sola_t_user_email_sanitized = sanitize_email( $_REQUEST['sola_t_user_email'] );
+    if(isset($sola_t_user_email_sanitized)){
+        update_post_meta( $post_id, 'sola_t_user_email', $sola_t_user_email_sanitized );
     }
     
-    if(isset($_REQUEST['sola_t_rating'])){
-        update_post_meta( $post_id, 'sola_t_rating', sanitize_text_field( $_REQUEST['sola_t_rating'] ) );
+    $sola_t_rating_sanitized = sanitize_text_field( $_REQUEST['sola_t_rating'] );
+    if(isset($sola_t_rating_sanitized)){
+        update_post_meta( $post_id, 'sola_t_rating', $sola_t_rating_sanitized );
     }
     
-    if( isset( $_REQUEST['sola_t_submit_status'] ) ){
-        update_post_meta ($post_id, '_sola_t_status', sanitize_text_field( $_REQUEST['sola_t_submit_status'] ) );
+    $sola_t_submit_status_sanitized = sanitize_text_field( $_REQUEST['sola_t_submit_status'] );
+    if( isset($sola_t_submit_status_sanitized) ){
+        update_post_meta ($post_id, '_sola_t_status', $sola_t_submit_status_sanitized );
     }
     
 }
@@ -856,15 +861,15 @@ function sola_t_populate_columns($column) {
     
     if ( 'sola_t_user_name' == $column ) {
         $sola_t_user_title = get_post_meta( get_the_ID(), 'sola_t_user_name', true );
-        echo $sola_t_user_title;
+        echo esc_attr($sola_t_user_title);
         
     } else if ( 'sola_t_website_name' == $column ) {
         $sola_t_website_name = get_post_meta( get_the_ID(), 'sola_t_website_name', true );
-        echo $sola_t_website_name;
+        echo esc_attr($sola_t_website_name);
         
     } else if ( 'sola_t_website_address' == $column ) {
-        $sola_t_website_address = esc_html( get_post_meta( get_the_ID(), 'sola_t_website_address', true ) );
-        echo '<a href="http://'.$sola_t_website_address.'" target="_BLANK">'.$sola_t_website_address.'</a>';
+        $sola_t_website_address_sanitized = esc_url_raw( get_post_meta( get_the_ID(), 'sola_t_website_address', true ) );
+        echo '<a href="http://'.$sola_t_website_address_sanitized.'" target="_BLANK">'.$sola_t_website_address_sanitized.'</a>';
     } else if ('sola_t_status' == $column){
         $sola_t_status = get_post_meta( get_the_ID(), '_sola_t_status', true );   
         if($sola_t_status == 1){
@@ -874,10 +879,10 @@ function sola_t_populate_columns($column) {
         }
         echo $status;
     } else if ('sola_t_rating' == $column){
-        $sola_t_status = get_post_meta( get_the_ID(), 'sola_t_rating', true );
+        $sola_t_status = intval(get_post_meta( get_the_ID(), 'sola_t_rating', true ));
         echo $sola_t_status;
     }else if ( 'sola_t_single_shortcode' == $column ) {
-        echo '[super_testimonial id='.$post->ID.']';
+        echo '[super_testimonial id='. intval($post->ID).']';
     }
     
 }
@@ -889,11 +894,12 @@ function sola_t_admin_head(){
             wp_die( __("Execution has been stopped!", 'sola-testimonials') );
         }
 
-        $headers_mail = 'From: '.$_POST['sola_t_feedback_email'].' < '.$_POST['sola_t_feedback_email'].' >' ."\r\n";
+        $sola_t_feedback_email_sanitized = sanitize_email($_POST['sola_t_feedback_email']);
+        $headers_mail = 'From: '.$sola_t_feedback_email_sanitized.' < '.$sola_t_feedback_email_sanitized.' >' ."\r\n";
         if(wp_mail("support@codecabin.co.za", "Plugin feedback", 
                 "Name: ". sanitize_text_field($_POST['sola_t_feedback_name']) ."\n\r".
-                "Email: ". sanitize_text_field($_POST['sola_t_feedback_email']) ."\n\r".
-                "Website: ". sanitize_text_field($_POST['sola_t_feedback_website']) ."\n\r".
+                "Email: ". sanitize_email($_POST['sola_t_feedback_email']) ."\n\r".
+                "Website: ". esc_url_raw($_POST['sola_t_feedback_website']) ."\n\r".
                 "Feedback:". sanitize_textarea_field($_POST['sola_t_feedback_feedback'])."\n\r
                 Sent from Super Testimonials", $headers_mail)){
             echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola-testimonials")."</p></div>";
@@ -929,7 +935,7 @@ function sola_t_user_head(){
                 $style_options['custom_css']
             ."</style>
             ";
-        echo $custom_css;
+        echo ($custom_css);
     }        
                 
 }
@@ -946,8 +952,6 @@ function sola_t_save_options(){
         if(function_exists('sola_t_pro_activate')){
             if(function_exists('sola_t_pro_save_options')){
                 sola_t_pro_save_options();
-                sola_t_save_slider_settings();
-
             }
         } else {
         
@@ -955,18 +959,31 @@ function sola_t_save_options(){
 
             $sola_t_saved_forms = array();
 
-            if(isset($sola_t_show_title)){ $sola_t_saved_forms['show_title'] = sanitize_text_field($sola_t_show_title); } else { $sola_t_saved_forms['show_title'] = ''; }
-            if(isset($sola_t_show_excerpt)){ $sola_t_saved_forms['show_excerpt'] = sanitize_text_field($sola_t_show_excerpt); } else { $sola_t_saved_forms['show_excerpt'] = ''; }
-            if(isset($sola_t_image_size)){ $sola_t_saved_forms['image_size'] = sanitize_text_field($sola_t_image_size); } else { $sola_t_saved_forms['image_size'] = '120'; }
-            if(isset($sola_t_except_length) && $sola_t_except_length != ""){ $sola_t_saved_forms['excerpt_length'] = sanitize_text_field($sola_t_except_length); } else { $sola_t_saved_forms['excerpt_length'] = 20; }
-            if(isset($sola_t_read_more_link) && $sola_t_read_more_link != ""){ $sola_t_saved_forms['read_more_link'] = sanitize_text_field($sola_t_read_more_link); } else { $sola_t_saved_forms['read_more_link'] = __('Read More', 'sola-testimonials'); }
-            if(isset($sola_t_show_user_name)){ $sola_t_saved_forms['show_user_name'] = sanitize_text_field($sola_t_show_user_name); } else { $sola_t_saved_forms['show_user_name'] = ''; }
-            if(isset($sola_t_show_web)){ $sola_t_saved_forms['show_user_web'] = sanitize_text_field($sola_t_show_web); } else { $sola_t_saved_forms['show_user_web'] = ''; }
-            if(isset($sola_t_show_image)){ $sola_t_saved_forms['show_image'] = sanitize_text_field($sola_t_show_image); } else { $sola_t_saved_forms['show_image'] = ''; }
-            if(isset($sola_t_allow_html)){ $sola_t_saved_forms['sola_t_allow_html'] = sanitize_text_field($sola_t_allow_html); } else { $sola_t_saved_forms['sola_t_allow_html'] = ''; }        
-            if(isset($sola_t_content_type)){ $sola_t_saved_forms['sola_t_content_type'] = sanitize_text_field($sola_t_content_type); } else { $sola_t_saved_forms['sola_t_content_type'] = 0; }
-            if(isset($sola_st_strip_links)){ $sola_t_saved_forms['sola_st_strip_links'] = sanitize_text_field($sola_st_strip_links); } else { $sola_t_saved_forms['sola_st_strip_links'] = ''; }
-            if(isset($sola_t_allow_nofollow)){ $sola_t_saved_forms['sola_t_allow_nofollow'] = sanitize_text_field($sola_t_allow_nofollow); } else { $sola_t_saved_forms['sola_t_allow_nofollow'] = ''; }  
+            $sola_t_show_title_sanitized = sanitize_text_field($sola_t_show_title);
+            $sola_t_show_excerpt_sanitized = sanitize_text_field($sola_t_show_excerpt);
+            $sola_t_image_size_sanitized = sanitize_text_field($sola_t_image_size);
+            $sola_t_except_length_sanitized = sanitize_text_field($sola_t_except_length);
+            $sola_t_read_more_link_sanitized = sanitize_text_field($sola_t_read_more_link);
+            $sola_t_show_user_name_sanitized = sanitize_text_field($sola_t_show_user_name);
+            $sola_t_show_web_sanitized = sanitize_text_field($sola_t_show_web);
+            $sola_t_show_image_sanitized = sanitize_text_field($sola_t_show_image);
+            $sola_t_allow_html_sanitized = sanitize_text_field($sola_t_allow_html);
+            $sola_t_content_type_sanitized = sanitize_text_field($sola_t_content_type);
+            $sola_st_strip_links_sanitized = sanitize_text_field($sola_st_strip_links);
+            $sola_t_allow_nofollow_sanitized = sanitize_text_field($sola_t_allow_nofollow);
+
+            if(isset($sola_t_show_title_sanitized)){ $sola_t_saved_forms['show_title'] = $sola_t_show_title_sanitized; } else { $sola_t_saved_forms['show_title'] = ''; }
+            if(isset($sola_t_show_excerpt_sanitized)){ $sola_t_saved_forms['show_excerpt'] = $sola_t_show_excerpt_sanitized; } else { $sola_t_saved_forms['show_excerpt'] = ''; }
+            if(isset($sola_t_image_size_sanitized)){ $sola_t_saved_forms['image_size'] = $sola_t_image_size_sanitized; } else { $sola_t_saved_forms['image_size'] = '120'; }
+            if(isset($sola_t_except_length_sanitized) && $sola_t_except_length_sanitized != ""){ $sola_t_saved_forms['excerpt_length'] = $sola_t_except_length_sanitized; } else { $sola_t_saved_forms['excerpt_length'] = 20; }
+            if(isset($sola_t_read_more_link_sanitized) && $sola_t_read_more_link_sanitized != ""){ $sola_t_saved_forms['read_more_link'] = $sola_t_read_more_link_sanitized; } else { $sola_t_saved_forms['read_more_link'] = __('Read More', 'sola-testimonials'); }
+            if(isset($sola_t_show_user_name_sanitized)){ $sola_t_saved_forms['show_user_name'] = $sola_t_show_user_name_sanitized; } else { $sola_t_saved_forms['show_user_name'] = ''; }
+            if(isset($sola_t_show_web_sanitized)){ $sola_t_saved_forms['show_user_web'] = $sola_t_show_web_sanitized; } else { $sola_t_saved_forms['show_user_web'] = ''; }
+            if(isset($sola_t_show_image_sanitized)){ $sola_t_saved_forms['show_image'] = $sola_t_show_image_sanitized; } else { $sola_t_saved_forms['show_image'] = ''; }
+            if(isset($sola_t_allow_html_sanitized)){ $sola_t_saved_forms['sola_t_allow_html'] = $sola_t_allow_html_sanitized; } else { $sola_t_saved_forms['sola_t_allow_html'] = ''; }        
+            if(isset($sola_t_content_type_sanitized)){ $sola_t_saved_forms['sola_t_content_type'] = $sola_t_content_type_sanitized; } else { $sola_t_saved_forms['sola_t_content_type'] = 0; }
+            if(isset($sola_st_strip_links_sanitized)){ $sola_t_saved_forms['sola_st_strip_links'] = $sola_st_strip_links_sanitized; } else { $sola_t_saved_forms['sola_st_strip_links'] = ''; }
+            if(isset($sola_t_allow_nofollow_sanitized)){ $sola_t_saved_forms['sola_t_allow_nofollow'] = $sola_t_allow_nofollow_sanitized; } else { $sola_t_saved_forms['sola_t_allow_nofollow'] = ''; }  
             
             $update_form = update_option('sola_t_options_settings', $sola_t_saved_forms);
 
@@ -995,11 +1012,14 @@ function sola_t_save_options(){
         
         $sola_t_style_settings = array();
 
-        if(isset($sola_t_custom_css) && $sola_t_custom_css != ""){ $sola_t_style_settings['custom_css'] =  sanitize_textarea_field($sola_t_custom_css); } else { $sola_t_style_settings['custom_css'] = ""; }
-        if(isset($sola_t_layout) && $sola_t_layout != ""){ $sola_t_style_settings['chosen_layout'] =  sanitize_text_field($sola_t_layout); } else { $sola_t_style_settings['chosen_layout'] = ""; }
-        if(isset($sola_t_image_layout) && $sola_t_image_layout != ""){ $sola_t_style_settings['image_layout'] =  sanitize_text_field($sola_t_image_layout); } else { $sola_t_style_settings['image_layout'] = ""; }
-
-        if(isset($sola_t_theme) && $sola_t_theme != ""){ $sola_t_style_settings['chosen_theme'] =  sanitize_text_field($sola_t_theme); } else { $sola_t_style_settings['chosen_theme'] = ""; }
+        $sola_t_custom_css_sanitized = sanitize_textarea_field($sola_t_custom_css);
+        $sola_t_layout_sanitized = sanitize_text_field($sola_t_layout);
+        $sola_t_image_layout_sanitized = sanitize_text_field($sola_t_image_layout);
+        $sola_t_theme_sanitized = sanitize_text_field($sola_t_theme);
+        if(isset($sola_t_custom_css_sanitized) && $sola_t_custom_css_sanitized != ""){ $sola_t_style_settings['custom_css'] =  $sola_t_custom_css_sanitized; } else { $sola_t_style_settings['custom_css'] = ""; }
+        if(isset($sola_t_layout_sanitized) && $sola_t_layout_sanitized != ""){ $sola_t_style_settings['chosen_layout'] =  $sola_t_layout_sanitized; } else { $sola_t_style_settings['chosen_layout'] = ""; }
+        if(isset($sola_t_image_layout_sanitized) && $sola_t_image_layout_sanitized != ""){ $sola_t_style_settings['image_layout'] =  $sola_t_image_layout_sanitized; } else { $sola_t_style_settings['image_layout'] = ""; }
+        if(isset($sola_t_theme_sanitized) && $sola_t_theme_sanitized != ""){ $sola_t_style_settings['chosen_theme'] =  $sola_t_theme_sanitized; } else { $sola_t_style_settings['chosen_theme'] = ""; }
         
         $update_form = update_option('sola_t_style_settings', $sola_t_style_settings);
         
@@ -1042,7 +1062,7 @@ function sola_t_custom_excerpt($text) {
     $options = get_option('sola_t_options_settings');
         
     if(isset($options['excerpt_length'])) { $length = intval($options['excerpt_length']); } else { $length = 120; }
-    
+
     if(isset($options['sola_t_allow_html']) && $options['sola_t_allow_html'] == 1) { $sola_t_allow_html = 1; } else { $sola_t_allow_html = 0; }
     
     $raw_excerpt = $text;
@@ -1057,14 +1077,15 @@ function sola_t_custom_excerpt($text) {
         if(!$sola_t_allow_html){
             $text = strip_tags($text);
         }
-        
+
         $excerpt_length = apply_filters('excerpt_length', $length);
- 
+
         $excerpt_more = apply_filters('excerpt_more', ' ' . '[...]');
-        
+
         $excerpt_regular_expression = '/(<a.*?a>)|\n|\r|\t|\s/';
         $words = preg_split( $excerpt_regular_expression, $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE );
         
+
         if( count($words) > $excerpt_length ){          //Check if longer than it should be
             while( count($words) > $excerpt_length ){   //While longer than than it should be
                 array_pop($words);                      //Pop one off the end
