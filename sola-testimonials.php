@@ -233,7 +233,7 @@ function sola_t_init(){
     load_plugin_textdomain( 'sola-testimonials', false, $plugin_dir );
     
     if (isset($_POST['action']) && $_POST['action'] == 'sola_t_submit_find_us') {
-        sola_t_feedback_head();
+        //sola_t_feedback_head();
         wp_redirect("./edit.php?post_type=testimonials&page=sola_t_settings", 302);
         exit();
     }
@@ -276,6 +276,8 @@ function sola_t_init(){
     
 } 
 
+/* Deprecated Since: 3.0.0 */
+/*
 function sola_t_feedback_head() {
     if (function_exists('curl_version')) {
 
@@ -291,6 +293,7 @@ function sola_t_feedback_head() {
     }
     return;
 }
+*/
 
 function sola_t_activate(){
     
@@ -904,19 +907,24 @@ function sola_t_admin_head(){
                 Sent from Super Testimonials", $headers_mail)){
             echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola-testimonials")."</p></div>";
         } else {
-            if (function_exists('curl_version')) {
-                $request_url = "http://www.solaplugins.com/apif-testimonials/rec_feedback.php";
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $request_url);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST);
-                curl_setopt($ch, CURLOPT_REFERER, $_SERVER['HTTP_HOST']);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                $output = curl_exec($ch);
-                curl_close($ch);
+            $request_url = "http://www.solaplugins.com/apif-testimonials/rec.php";
+            $body = array(
+                'name' => sanitize_text_field($_POST['sola_t_feedback_name']),
+                'email' => sanitize_email($_POST['sola_t_feedback_email']),
+                'website' => esc_url_raw($_POST['sola_t_feedback_website']),
+                'feedback' => sanitize_textarea_field($_POST['sola_t_feedback_feedback'])
+            );
+
+            $args = array(
+                'body' => $body
+            );
+
+            $result = wp_remote_post($request_url, $args);
+            $http_code = wp_remote_retrieve_response_code( $result );
+            
+            if ($http_code === 200){
                 echo "<div id=\"message\" class=\"updated\"><p>".__("Thank you for your feedback. We will be in touch soon","sola-testimonials")."</p></div>";
-            } 
-            else {
+            } else {
                 echo "<div id=\"message\" class=\"error\">";
                 echo "<p>".__("There was a problem sending your feedback. Please log your feedback on ","sola-testimonials")."<a href='http://codecabin.io/store/support/' target='_BLANK'>http://codecabin.io/store/support/</a></p>";
                 echo "</div>";
