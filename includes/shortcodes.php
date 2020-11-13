@@ -20,17 +20,17 @@ function sola_t_all_testimonials($atts){
     $options = get_option('sola_t_options_settings');
     $layouts = get_option('sola_t_style_settings');
     
-    isset($options['show_title']) ? $show_title = $options['show_title'] : $show_title = "";
-    isset($options['show_excerpt']) ? $show_body = $options['show_excerpt'] : $show_body = "";
-    isset($options['show_user_name']) ? $show_name = $options['show_user_name'] : $show_name = "";
-    isset($options['show_user_web']) ? $show_website = $options['show_user_web'] : $show_website = "";
-    isset($options['show_image']) ? $show_image = $options['show_image'] : $show_image = "";
-    isset($options['image_size']) ? $image_size = $options['image_size'] : $image_size = "";
-    isset($options['show_rating']) ? $show_rating = $options['show_rating'] : $show_rating = "";
-    isset($options['excerpt_length']) ? $excerpt_length = $options['excerpt_length'] : $excerpt_length = "";    
+    isset($options['show_title']) ? $show_title = sanitize_text_field($options['show_title']) : $show_title = "";
+    isset($options['show_excerpt']) ? $show_body = sanitize_text_field($options['show_excerpt']) : $show_body = "";
+    isset($options['show_user_name']) ? $show_name = sanitize_text_field($options['show_user_name']) : $show_name = "";
+    isset($options['show_user_web']) ? $show_website = sanitize_text_field($options['show_user_web']) : $show_website = "";
+    isset($options['show_image']) ? $show_image = sanitize_text_field($options['show_image']) : $show_image = "";
+    isset($options['image_size']) ? $image_size = intval($options['image_size']) : $image_size = "";
+    isset($options['show_rating']) ? $show_rating = sanitize_text_field($options['show_rating']) : $show_rating = "";
+    isset($options['excerpt_length']) ? $excerpt_length = intval($options['excerpt_length']) : $excerpt_length = "";    
     if(isset($options['sola_t_allow_html']) && $options['sola_t_allow_html'] == 1) { $sola_t_allow_html = 1; } else { $sola_t_allow_html = 0; }
     
-    isset($options['sola_t_content_type']) ? $content_type = $options['sola_t_content_type'] : $content_type = 0;
+    isset($options['sola_t_content_type']) ? $content_type = intval($options['sola_t_content_type']) : $content_type = 0;
     
     if(isset($options['sola_st_strip_links']) && $options['sola_st_strip_links'] == 1){ $sola_t_strip_links = 1; } else { $sola_t_strip_links = 0; }
 
@@ -107,12 +107,12 @@ function sola_t_all_testimonials($atts){
     
     
     while ($my_query->have_posts()): $my_query->the_post(); 
-        
         $cnt++;
         if(isset($show_title) && $show_title == 1){
 
             if(!$sola_t_strip_links){
                 $the_title = "<div class=\"sola_t_title\"><a href=\"".get_the_permalink($post->ID)."\">".apply_filters("sola_t_filter_title",get_the_title())."</a></div>";
+
             } else {
                 $the_title = "<div class=\"sola_t_title\">".apply_filters("sola_t_filter_title",get_the_title())."</div>";
             }
@@ -367,14 +367,14 @@ function sola_t_all_testimonials($atts){
 
     if( isset( $atts['per_page'] ) ){
 
-        $per_page = $atts['per_page'];
+        $per_page = intval($atts['per_page']);
 
-        $maximum_pages = $my_query->max_num_pages;
+        $maximum_pages = intval($my_query->max_num_pages);
 
         $ret .= "<div class='sola_t_pagination_container'>";
         $ret .= "   <ul>";
         
-        for( $page_count = 1; $page_count <= $maximum_pages; $page_count++){
+        for( $page_count = 1; $page_count <= intval($maximum_pages); $page_count++){
             $ret .= "<li><a href='javascript:void(0);' class='sola_t_page' pp='".$per_page."' pnum='".$page_count."' id='sola_t_page_".$page_count."' title='".__('Page', 'sola-testimonials') . " " . $page_count."'>".$page_count."</a></li>";
         }
         
@@ -527,17 +527,17 @@ function sola_t_ajax_callback(){
 
             $options = get_option('sola_t_options_settings');
             
-            isset($options['show_title']) ? $show_title = $options['show_title'] : $show_title = "";
-            isset($options['show_excerpt']) ? $show_body = $options['show_excerpt'] : $show_body = "";
-            isset($options['show_user_name']) ? $show_name = $options['show_user_name'] : $show_name = "";
-            isset($options['show_user_web']) ? $show_website = $options['show_user_web'] : $show_website = "";
-            isset($options['show_image']) ? $show_image = $options['show_image'] : $show_image = "";
-            isset($options['image_size']) ? $image_size = $options['image_size'] : $image_size = "";
-            isset($options['show_rating']) ? $show_rating = $options['show_rating'] : $show_rating = "";
-            isset($options['excerpt_length']) ? $excerpt_length = $options['excerpt_length'] : $excerpt_length = "";    
+            isset($options['show_title']) ? $show_title = sanitize_text_field($options['show_title']) : $show_title = "";
+            isset($options['show_excerpt']) ? $show_body = sanitize_text_field($options['show_excerpt']) : $show_body = "";
+            isset($options['show_user_name']) ? $show_name = sanitize_text_field($options['show_user_name']) : $show_name = "";
+            isset($options['show_user_web']) ? $show_website = sanitize_text_field($options['show_user_web']) : $show_website = "";
+            isset($options['show_image']) ? $show_image = sanitize_text_field($options['show_image']) : $show_image = "";
+            isset($options['image_size']) ? $image_size = intval($options['image_size']) : $image_size = "";
+            isset($options['show_rating']) ? $show_rating = sanitize_text_field($options['show_rating']) : $show_rating = "";
+            isset($options['excerpt_length']) ? $excerpt_length = intval($options['excerpt_length']) : $excerpt_length = "";    
             if(isset($options['sola_t_allow_html']) && $options['sola_t_allow_html'] == 1) { $sola_t_allow_html = 1; } else { $sola_t_allow_html = 0; }
             
-            isset($options['sola_t_content_type']) ? $content_type = $options['sola_t_content_type'] : $content_type = 0;
+            isset($options['sola_t_content_type']) ? $content_type = intval($options['sola_t_content_type']) : $content_type = 0;
             
             if(isset($options['sola_st_strip_links']) && $options['sola_st_strip_links'] == 1){ $sola_t_strip_links = 1; } else { $sola_t_strip_links = 0; }
             

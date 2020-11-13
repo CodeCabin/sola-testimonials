@@ -319,7 +319,7 @@ function sola_t_activate(){
         'show_user_web' => 1,
         'show_image' => 1,
         'sola_t_allow_html' => 0,
-        'sola_t_allow_nofollow' => 1
+        'sola_t_allow_nofollow' => 1,
     );
     
     add_option('sola_t_options_settings', $sola_t_options_settings);
