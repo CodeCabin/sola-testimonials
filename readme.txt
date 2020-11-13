@@ -199,7 +199,7 @@ Not applicable.
 == Changelog ==
 
 
-= 3.0.0 - 2020-10-28 - Medium priority =
+= 3.0.0 - 2020-11-13 - Medium priority =
 * Renamed to Super Testimonials
 * Resolved Security issues in settings and Feedback area
 * Tested up to WordPress 5.5.1
